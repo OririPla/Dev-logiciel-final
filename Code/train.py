@@ -8,11 +8,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 import random
+import tensorflow as tf
 
 
 ### Code ### 
 
-nb_images=1000 #The dataset is too big, so we only take 1000 images
+nb_images=10000 #The dataset is too big, so we only take 1000 images
 
 sexe,filenames=Autoencodeur.load_attr()
 x_data=Autoencodeur.import_images(nb_images,0,sexe,filenames,)
@@ -30,12 +31,12 @@ autoencoder=Autoencodeur.autoencoder
 
 #Train the autoencodeur with the train dataset
 autoencoder.fit(X_train, X_train,
-                epochs=100,
+                epochs=50,
                 shuffle=True,
                 validation_data=(X_test, X_test))
 
 #Save the model
-tf.keras.models.save_model(autoencoder,"../modele_entraine/autoencodeur/autoencodeurFLATTEN.tf") #save autoencoder
+tf.keras.models.save_model(autoencoder,"../autoencodeurFLATTEN4.tf") #save autoencoder
 # tf.keras.models.save_model(autoencoder.encoder,"../modele_entraine/encodeur/encodeurFlatten.tf") #save encoder
 # tf.keras.models.save_model(autoencoder.decoder,"../modele_entraine/decodeur/decodeurFlatten.tf") #save decoder
 

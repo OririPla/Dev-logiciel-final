@@ -32,7 +32,7 @@ def load_attr():
             filesnames (list)
 
     """
-    db=pd.read_csv('new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
+    db=pd.read_csv('/home/plecorre/Documents/4A-S2/Proj_dev_log/Projet-developpement-logociel/AUTOENCODEUR/new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
     filesnames=list(db["nb_pic"])
     sexe=list(db['Male'])
     return(sexe,filesnames)
@@ -56,24 +56,14 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
 
     #Re-load the model to train it another time, we take another part of the dataset to do it
     #we can do it as many time as we want
-    autoencoder_re=tf.keras.models.load_model(f'../modele_entraine/autoencodeur/autoencodeurFLATTEN.tf')
+    autoencoder_re=tf.keras.models.load_model(f'../autoencodeurFLATTEN4.tf')
     x_data=import_images(nb_images,start,sexe,filenames)
-    print("coucou")
     samples=[random.randint(0,len(x_data)-1) for i in range(32)]
     X_train, X_test = train_test_split(x_data,test_size=0.2,random_state=0)
     del(x_data)
-    autoencoder_re.fit(X_train, X_train,
-                    epochs=100,
-                    shuffle=True,
-                    validation_data=(X_test, X_test))
-
-
-    tf.keras.models.save_model(autoencoder_re,f"../modele_entraine/autoencodeur/autoencodeurFLATTEN.tf")
-
-    del(X_test)
-    del(X_train)
-
     if plot==1 :
+        encoded_imgs = autoencoder_re.encoder(X_test[:100]).numpy()
+        decoded_imgs = autoencoder_re.decoder(encoded_imgs).numpy()
         #Print images before and after the passage in the Autoencoder
         n = 10
         skip=0
@@ -94,6 +84,21 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
             ax.get_xaxis().set_visible(False)
             ax.get_yaxis().set_visible(False)
         plt.show()
+        
+        autoencoder_re.fit(X_train, X_train,
+                    epochs=50,
+                    shuffle=True,
+                    validation_data=(X_test, X_test))
+
+
+    tf.keras.models.save_model(autoencoder_re,f"../autoencodeurFLATTEN4.tf")
+
+    
+
+
+
+    del(X_test)
+    del(X_train)
 
 
 def import_images(nb_images,start,sexe,filesnames):
@@ -110,7 +115,7 @@ def import_images(nb_images,start,sexe,filesnames):
                 x_data (numpy array)
 
         """
-    dataset_img='img_align_celeba'
+    dataset_img='/home/plecorre/Documents/4A-S2/Proj_dev_log/Projet-developpement-logociel/AUTOENCODEUR/img_align_celeba'
     x=[]
     compt_Male=0
     compt_Female=0
@@ -140,14 +145,14 @@ class AutoEncoder(Model):
         We can have different form of the latent space by commenting certain lines : we try 3 possibilities :
             matrix (32,32,4)
             matrix (16,16,2)
-            vector size 2048
-        
+            vector size 4096
+
 
         Attributes :
 
         Methods :
-            call 
-    """ 
+            call
+    """
     def __init__(self):
         super(AutoEncoder, self).__init__()
         self.encoder = keras.Sequential([
@@ -156,12 +161,12 @@ class AutoEncoder(Model):
             layers.Conv2D(4, (3,3), activation='relu', padding='same', strides=2),
             #layers.Conv2D(2, (3,3), activation='relu', padding='same', strides=2), #commented to have a vector in latent space and a space (32,32,4) in latent space
             layers.Flatten(), #commented to have a matrix in the latent space
-            layers.Dense(2048, activation="relu"), #commented to have a matrix in the latent space
-            layers.Dense(2048, activation="relu") #commented to have a matrix in the latent space
+            layers.Dense(4096, activation="relu"), #commented to have a matrix in the latent space
+            layers.Dense(4096, activation="relu") #commented to have a matrix in the latent space
             ])
 
         self.decoder = keras.Sequential([
-            layers.Dense(2048,activation="relu"), #commented to have a matrix in the latent space
+            layers.Dense(4096,activation="relu"), #commented to have a matrix in the latent space
             layers.Dense(32 * 32 * 4, activation="relu"),#commented to have a matrix in the latent space
             layers.Reshape((32, 32, 4)), #commented to have a matrix in the latent space
             #layers.Conv2DTranspose(2, kernel_size=3, strides=2, activation='relu', padding='same'), #commented to have a vector in latent space  and a space (32,32,4) in latent space
@@ -170,8 +175,8 @@ class AutoEncoder(Model):
             layers.Conv2D(3, kernel_size=(3,3), activation='sigmoid', padding='same')])
 
     def call(self, x):
-        encoded = self.encoder(x) 
-        decoded = self.decoder(encoded) 
+        encoded = self.encoder(x)
+        decoded = self.decoder(encoded)
         return decoded
 
 
