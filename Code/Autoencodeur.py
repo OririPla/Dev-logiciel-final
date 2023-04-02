@@ -32,7 +32,7 @@ def load_attr():
             filesnames (list)
 
     """
-    db=pd.read_csv('/home/plecorre/Documents/4A-S2/Proj_dev_log/Projet-developpement-logociel/AUTOENCODEUR/new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
+    db=pd.read_csv('new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
     filesnames=list(db["nb_pic"])
     sexe=list(db['Male'])
     return(sexe,filesnames)
@@ -56,7 +56,7 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
 
     #Re-load the model to train it another time, we take another part of the dataset to do it
     #we can do it as many time as we want
-    autoencoder_re=tf.keras.models.load_model(f'../autoencodeurFLATTEN4.tf')
+    autoencoder_re=tf.keras.models.load_model('autoencodeurFLATTEN4.tf')
     x_data=import_images(nb_images,start,sexe,filenames)
     samples=[random.randint(0,len(x_data)-1) for i in range(32)]
     X_train, X_test = train_test_split(x_data,test_size=0.2,random_state=0)
@@ -84,16 +84,16 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
             ax.get_xaxis().set_visible(False)
             ax.get_yaxis().set_visible(False)
         plt.show()
-        
+
         autoencoder_re.fit(X_train, X_train,
                     epochs=50,
                     shuffle=True,
                     validation_data=(X_test, X_test))
 
 
-    tf.keras.models.save_model(autoencoder_re,f"../autoencodeurFLATTEN4.tf")
+    tf.keras.models.save_model(autoencoder_re,"autoencodeurFLATTEN4.tf")
 
-    
+
 
 
 
@@ -115,7 +115,7 @@ def import_images(nb_images,start,sexe,filesnames):
                 x_data (numpy array)
 
         """
-    dataset_img='/home/plecorre/Documents/4A-S2/Proj_dev_log/Projet-developpement-logociel/AUTOENCODEUR/img_align_celeba'
+    dataset_img='img_align_celeba'
     x=[]
     compt_Male=0
     compt_Female=0
