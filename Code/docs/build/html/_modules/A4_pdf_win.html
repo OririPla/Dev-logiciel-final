@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>A4_pdf_win &mdash; Software development 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/fonts.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Software development
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Software development project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Code</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Software development</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+<div class="git-ribbon">
+  <a href="http://github.com/SwissDataScienceCenter" rel="me">Join us on GitHub</a>
+</div>
+
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>A4_pdf_win</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for A4_pdf_win</h1><div class="highlight"><pre>
+<span></span><span class="c1">### MODULES IMPORTATION</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span>
+<span class="kn">import</span>  <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+
+<span class="kn">from</span> <span class="nn">fpdf</span> <span class="kn">import</span> <span class="n">FPDF</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageTk</span>
+
+
+<span class="c1">### CLASS IMPORTATION</span>
+<span class="kn">import</span> <span class="nn">A5_final_win</span> <span class="k">as</span> <span class="nn">f</span>
+
+<div class="viewcode-block" id="pdf_win"><a class="viewcode-back" href="../A4_pdf_win.html#A4_pdf_win.pdf_win">[docs]</a><span class="k">class</span> <span class="nc">pdf_win</span><span class="p">:</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choosen_photo</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">choosen</span><span class="o">=</span><span class="n">choosen_photo</span>
+        <span class="n">width</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">winfo_screenwidth</span><span class="p">()</span>
+        <span class="n">height</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">winfo_screenheight</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">x</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Exporter vos données&quot;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_1</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Renseigner vos informations :&quot;</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_1</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+        <span class="c1">#Nom</span>
+        <span class="n">lname</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Nom : &quot;</span><span class="p">)</span>
+        <span class="n">lname</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lname_entry</span> <span class="o">=</span> <span class="n">Entry</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span> <span class="mi">22</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lname_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        
+        <span class="c1">#Prenom</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Prénom : &quot;</span><span class="p">)</span>
+        <span class="n">fname</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fname_entry</span> <span class="o">=</span> <span class="n">Entry</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span> <span class="mi">22</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fname_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        
+        <span class="c1">#Date</span>
+        <span class="n">date</span><span class="o">=</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Date de naissance (jj/mm/aaaa): &quot;</span><span class="p">)</span>
+        <span class="n">date</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date_entry</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span> <span class="mi">22</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        
+        <span class="c1">#Create a Button to get the input data</span>
+        <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span> <span class="s2">&quot;Entrer&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+                
+        <span class="c1">#Inititalize a Label widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recap</span><span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Helvetica 13&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recap</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_gen_pdf</span><span class="o">=</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Générer PDF &#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="pdf_win.get_data"><a class="viewcode-back" href="../A4_pdf_win.html#A4_pdf_win.pdf_win.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+        <span class="c1">#list de texte pour eviter les acolades</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;VOICI LE RECAPITULATIF DE VOS INFORMATIONS :&quot;</span><span class="p">,</span> <span class="s2">&quot;Nom : &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lname_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span> <span class="s2">&quot;Prénom : &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span> <span class="s2">&quot;Date de naissance : &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">date_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span> <span class="s2">&quot;Si les informations ci-dessus sont correctes, vous pouvez valider. </span><span class="se">\n</span><span class="s2"> Sinon, vous pouvez encore les modifier et appuyer à nouveau sur entrer.&quot;</span><span class="p">,</span><span class="s2">&quot; Les informations seront générées sous format PDF avec pour nom de fichier : infos.pdf &quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n\n\n\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Helvetica 13&#39;</span><span class="p">))</span>
+        <span class="c1">#afficher le button aussi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_gen_pdf</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span></div>
+        
+<div class="viewcode-block" id="pdf_win.close_win"><a class="viewcode-back" href="../A4_pdf_win.html#A4_pdf_win.pdf_win.close_win">[docs]</a>    <span class="k">def</span> <span class="nf">close_win</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+            
+<div class="viewcode-block" id="pdf_win.validate"><a class="viewcode-back" href="../A4_pdf_win.html#A4_pdf_win.pdf_win.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="c1">#génère le pdf et ouvre derniere fenetre de remerciements</span>
+
+        <span class="c1">#Création de ma page PDF</span>
+        <span class="n">monPdf</span> <span class="o">=</span> <span class="n">FPDF</span><span class="p">()</span>
+        <span class="n">monPdf</span><span class="o">.</span><span class="n">add_page</span><span class="p">()</span>
+        <span class="n">monPdf</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s2">&quot;Arial&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1">#Image_choisie=Image.open(self.choosen)</span>
+        <span class="c1">#monPdf.image(Image_choisie, x = 85, y = 32.5, type = &#39;&#39;, link = &#39;&#39;)</span>
+
+        <span class="c1">#Récupère les informations</span>
+        <span class="n">monPdf</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">txt</span><span class="o">=</span><span class="s2">&quot;Final Report&quot;</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+        <span class="n">monPdf</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">txt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ln</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+            <span class="n">monPdf</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">txt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ln</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+            <span class="n">monPdf</span><span class="o">.</span><span class="n">ln</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+       
+
+        <span class="n">monPdf</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="s2">&quot;infos.pdf&quot;</span><span class="p">)</span>
+        
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_win</span><span class="p">()</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">final_win</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;PDF généré&quot;</span> <span class="p">)</span></div></div>
+
+
+
+<span class="c1">### MAIN</span>
+
+<span class="c1">#first = pdf_win()</span>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2023, Pauline Le Corre, Sarah Corallo, Oriane Plantec, Lea Aguilhon, Dana Moreno.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
