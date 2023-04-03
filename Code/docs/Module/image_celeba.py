@@ -6,53 +6,77 @@ from PIL import Image, ImageTk
 
 
 class image_celeba :
+    """
+    A class to handle CelebA dataset images and resizing.
+
+    Methods:
+        __init__(self, afilename, anumber, matrix, P): initialisation of the object image_celeba
+        get_filename_jpg()
+            Returns the filename of the jpg file.
+        RESIZING(x, y)
+            Resize the image to fit in a (x,y) box and save the resized image.
+
+    Attributes:
+        filename_jpg : str
+            The path of the jpg file.
+        number : int
+            The number of the image in the dataset.
+        matrix : list
+            A 40x2 matrix of features.
+        P : np.array
+            The list of the images into their encoded form, so it's a list of vector
+        im : PIL.Image
+            The image object.
+
+    """
+
     def __init__(self, afilename, anumber, matrix, P):
+        """
+        Initialisation of the object image_celeba
+
+        input:
+            self(image_celeba)
+            afilename (str): The path of the jpg file.
+            anumber (int) : The number of the image in the dataset.
+            matrix (list) : A 40x2 matrix of features.
+            P (np.array) : the list of the images into their encoded form, so it's a list of vector
+
+        output :
+
+        """
+
         self.filename_jpg=afilename
-        
+
         self.number=anumber
         self.matrix=matrix
         self.P=P
         self.im = Image.open(self.filename_jpg)
 
-    # methode nécessaire ?
     def get_filename_jpg(self):
+        """
+        Returns the filename of the jpg file.
+
+        input:
+            self(image_celeba)
+
+        output :
+
+        """
         return self.filename_jpg
 
-    def RESIZING (self,x,y): 
+    def RESIZING (self,x,y):
+        """
+        Resize the image to fit in a (x,y) box and save the resized image.
+
+        input:
+            self(image_celeba)
+            x(int): The width of the box.
+            y(int): The height of the box.
+
+        output :
+
+        """
         #resize image and keep ratio
         self.im.thumbnail((x, y))
         #self.im.save('resized_'+self.filename_jpg)
         self.im.save(self.filename_jpg)
-
-
-#main
-"""
-fen1 = Tk()
-width= fen1.winfo_screenwidth()
-height= fen1.winfo_screenheight()
-fen1.geometry("%dx%d" % (width, height))
-fen1.title("test")
-
-
-label = ttk.Label(fen1, text="Bonjour et bienvenue, logiciel de déposition de plainte par portrait robot. Nous allons  vous montrer des photos et vous en choisirez certaines" )
-label.pack()
-
-#creation image olivetti
-test_img=image_celeba("IMG/000010.jpg", 1)
-test_img_resized=test_img.RESIZING(110,110)
-#peut que diminuer
-print(test_img.filename_jpg)
-
-
-render = ImageTk.PhotoImage(test_img.im)
-
-#img = Label(fen1, image=render)
-#img.image = render
-#img.pack()
-
-b1 = tk.Button(fen1, image=render)
-b1.pack()
-
-fen1.mainloop()
-
-"""

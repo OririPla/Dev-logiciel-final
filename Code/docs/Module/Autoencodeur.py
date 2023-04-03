@@ -1,4 +1,4 @@
-#### Import ####
+### Import ####
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,23 +17,19 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.callbacks import TensorBoard
 
-#from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
 ### Fonction definition ###
 
 def load_attr():
     """
         Create the liste of filesnames and sexe of the images
-
         input :
-            None
-
         output :
             sexe (list)
             filesnames (list)
-
     """
-    db=pd.read_csv('/home/plecorre/Documents/4A-S2/Proj_dev_log/Projet-developpement-logociel/AUTOENCODEUR/new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
+    db=pd.read_csv('new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
     filesnames=list(db["nb_pic"])
     sexe=list(db['Male'])
     return(sexe,filesnames)
@@ -42,7 +38,6 @@ def load_attr():
 def retrain(sexe,filenames,nb_images,start,plot=0):
     """
         Fit the autoencodeur with nb_images new images, start with the start images of the dataset. Finally save the autoencodeur with the number num.
-
         input :
                 sexe (list)
                 filenames (list)
@@ -50,15 +45,12 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
                 start (int)
                 num (int)
                 plot (int)
-
         output :
-                None
-
     """
 
     #Re-load the model to train it another time, we take another part of the dataset to do it
     #we can do it as many time as we want
-    autoencoder_re=tf.keras.models.load_model(f'../autoencodeurFLATTEN4.tf')
+    autoencoder_re=tf.keras.models.load_model('autoencodeurFLATTEN4.tf')
     x_data=import_images(nb_images,start,sexe,filenames)
     samples=[random.randint(0,len(x_data)-1) for i in range(32)]
     X_train, X_test = train_test_split(x_data,test_size=0.2,random_state=0)
@@ -93,7 +85,7 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
                     validation_data=(X_test, X_test))
 
 
-    tf.keras.models.save_model(autoencoder_re,f"../autoencodeurFLATTEN4.tf")
+    tf.keras.models.save_model(autoencoder_re,"autoencodeurFLATTEN4.tf")
 
 
 
@@ -106,18 +98,15 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
 def import_images(nb_images,start,sexe,filesnames):
     """
         Import images of the dataset. Import nb_images, strat with the images number start and take the same number of male and female.
-
             input :
                 nb_images (int)
                 start (int)
                 sexe (list)
                 filesnames (list)
-
             output :
                 x_data (numpy array)
-
         """
-    dataset_img='/home/plecorre/Documents/4A-S2/Proj_dev_log/Projet-developpement-logociel/AUTOENCODEUR/img_align_celeba'
+    dataset_img='img_align_celeba'
     x=[]
     compt_Male=0
     compt_Female=0
@@ -143,18 +132,14 @@ def import_images(nb_images,start,sexe,filesnames):
 
 class AutoEncoder(Model):
     """
-         A class to represent the autoencodeur model with an encoder and a decoder
-         We can have different form of the latent space by commenting certain lines : we try 3 possibilities :
-             matrix (32,32,4)
-             matrix (16,16,2)
-             vector size 4096
-
-
-         Attributes :
-             None
-
-         Methods :
-             call
+        A class to represent the autoencodeur model with an encoder and a decoder
+        We can have different form of the latent space by commenting certain lines : we try 3 possibilities :
+            matrix (32,32,4)
+            matrix (16,16,2)
+            vector size 4096
+        Attributes :
+        Methods :
+            call
     """
     def __init__(self):
         super(AutoEncoder, self).__init__()
