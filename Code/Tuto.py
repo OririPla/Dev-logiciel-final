@@ -31,12 +31,12 @@ class tutoriel:
 
 
         # set up the images
-        image1 = ImageTk.PhotoImage(Image.open("../../IMG/tuto/Ima_tuto_1.png").resize((600, 350)), master=self.win)
-        image2 = ImageTk.PhotoImage(Image.open("../../IMG/tuto/Ima_tuto_2.png").resize((600, 350)), master=self.win)
-        image3 = ImageTk.PhotoImage(Image.open("../../IMG/tuto/Ima_tuto_3.png").resize((600, 350)), master=self.win)
-        image4 = ImageTk.PhotoImage(Image.open("../../IMG/tuto/Ima_tuto_4.png").resize((600, 350)), master=self.win)
-        image5 = ImageTk.PhotoImage(Image.open("../../IMG/tuto/Ima_tuto_5.png").resize((600, 350)), master=self.win)
-        image6 = ImageTk.PhotoImage(Image.open("../../IMG/tuto/Ima_tuto_6.png").resize((600, 350)), master=self.win)
+        image1 = ImageTk.PhotoImage(Image.open("../IMG/tuto/Ima_tuto_1.png").resize((600, 350)), master=self.win)
+        image2 = ImageTk.PhotoImage(Image.open("../IMG/tuto/Ima_tuto_2.png").resize((600, 350)), master=self.win)
+        image3 = ImageTk.PhotoImage(Image.open("../IMG/tuto/Ima_tuto_3.png").resize((600, 350)), master=self.win)
+        image4 = ImageTk.PhotoImage(Image.open("../IMG/tuto/Ima_tuto_4.png").resize((600, 350)), master=self.win)
+        image5 = ImageTk.PhotoImage(Image.open("../IMG/tuto/Ima_tuto_5.png").resize((600, 350)), master=self.win)
+        image6 = ImageTk.PhotoImage(Image.open("../IMG/tuto/Ima_tuto_6.png").resize((600, 350)), master=self.win)
         # add them to the list
         self.image_list = [image1, image2, image3, image4, image5,image6]
         # counter integer

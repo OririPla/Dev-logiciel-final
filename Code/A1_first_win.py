@@ -61,7 +61,7 @@ class first_win:
                                    command=self.start )
         self.button1.pack(pady=100)
 
-        image_insa=tk.PhotoImage(file='../../../IMG/resized_logo_INSA.png')
+        image_insa=tk.PhotoImage(file='../IMG/resized_logo_INSA.png')
         self.button_web = tk.Button(self.win, image=image_insa, command=self.lien_insa)
         self.button_web.pack(padx=100)
 

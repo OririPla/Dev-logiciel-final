@@ -33,7 +33,7 @@ import image_celeba as ic
 # DOWNLOAD THE DATASET
 # To change according the computer
 #dataset_img='/home/scorallo/Documents/4BIM_S2/Projet dvpt logiciel/img_align_celeba'
-dataset_img='../../../f_annexes/f_annexes/img_align_celeba'
+dataset_img='../f_annexes/img_align_celeba'
 
 # DOWNLOAD THE ATTRIBUTES OF THE IMAGES
 def load_attr():
@@ -49,7 +49,7 @@ def load_attr():
     """
 
    #db=pd.read_csv('new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
-    db=pd.read_csv('../../../f_annexes/new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
+    db=pd.read_csv('../f_annexes/new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
     filesnames=list(db["nb_pic"])
     sexe=list(db['Male'])
     return(sexe,filesnames)
@@ -99,7 +99,7 @@ def import_images(sexe,filesnames,nb_images = 1000,start = 0):
 
 
 # DOWNLOAD AUTOENCODER
-autoencodeur=tf.keras.models.load_model('../../../f_annexes/f_annexes/autoencodeurFLATTEN4.tf')
+autoencodeur=tf.keras.models.load_model('../f_annexes/autoencodeurFLATTEN4.tf')
 decodeur=autoencodeur.decoder
 encodeur=autoencodeur.encoder
 
@@ -269,7 +269,7 @@ def saving_images_and_getting_list_initial(P, list_img_non_encoded):
         plt.imshow(tf.squeeze(list_img_non_encoded[i]))
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
-        jpg_name="../../../IMG/Celeb_"+str(i)+".jpg"
+        jpg_name="../IMG/Celeb_"+str(i)+".jpg"
         plt.imsave(jpg_name, list_img_non_encoded[i])
         im=ic.image_celeba(jpg_name, i,P[i],P)
 
@@ -301,7 +301,7 @@ def saving_images_and_getting_list(P):
         plt.imshow(tf.squeeze(decoded_imgs[i]))
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
-        jpg_name="../../../IMG/Celeb_"+str(i)+".jpg"
+        jpg_name="../IMG/Celeb_"+str(i)+".jpg"
         plt.imsave(jpg_name, decoded_imgs[i])
         im=ic.image_celeba(jpg_name, i,P[i],P)
         List_images.append(im)
