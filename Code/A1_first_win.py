@@ -15,21 +15,30 @@ class first_win:
     This module uses the tkinter library to create a GUI with a label and a button. The label displays a welcome message to the user, while the button allows the user to start the application. When the button is clicked, it closes the current window and opens a second window.
 
     Attributes:
-        None
-    Methods:
-        __init__(self, string_titre): Constructs and initializes the GUI window with string_titre as its title.
-        close_win(self): Destroys the GUI window.
-        start(self): Closes the current window and opens a second window.
-
+        win (Tk object) :
+            The main window object.
+        text (tkinter.StringVar) :
+            The text shown in the window.
+        label1 (ttk.Label) :
+            A label object used to display a message in the window.
+        label2 (ttk.Label) :
+            A label object used to display a message in the window.
+        button_tuto (ttk.Button) :
+            A button to access to the tutorial
+        button1 (ttk.Button) :
+            A button to begin the program
+        button_web (ttk.Button) :
+            A button to access to the web site of INSA
     """
-    
-    def __init__(self, string_titre):
-        """Constructs and initializes the GUI window with string_titre as its title.
-        input :
-            self(first_win)
-            string_titre(str) : name of the first window
 
-        output :
+    def __init__(self, string_titre):
+        """
+        Constructs and initializes the GUI window with string_titre as its title.
+
+        input :
+            string_titre (str) :
+                Name of the first window
+
         """
 
         self.win = Tk()
@@ -61,12 +70,6 @@ class first_win:
     def tuto(self):
         """
         Add a button to a link to the tutoriel (explication of how works the logiciel).
-
-        input :
-            self(first_win)
-
-        output :
-
         """
         t.tutoriel()
 
@@ -74,36 +77,18 @@ class first_win:
     def lien_insa(self):
         """
         Add a logo INSA that allows to access to a web site.
-
-        input :
-            self(first_win)
-
-        output :
-
         """
         webbrowser.open('https://www.insa-lyon.fr')
 
     def close_win(self):
         """
         Destroys the GUI window.
-
-        input :
-            self(first_win)
-
-        output :
-
         """
         self.win.destroy()
 
-    def start( self ):
+    def start(self):
         """
         Closes the current window and opens a second window.
-
-        input :
-            self(first_win)
-
-        output :
-
         """
         self.close_win()
         p.photo_win("Fenetre avec photos et  Algorithme")

@@ -22,25 +22,30 @@ class photo_win:
     """
     Creates a window with five images, and allows the user to choose one of them, reset the images,
     or validate their choice.
-    Methods:
-        __init__(self, string_titre): Initializes the window and creates the widgets
-        mise_a_j_img(self): Updates the images displayed in the window
-        reinitialise(self): Switches the current window five images with five new images
-        close_win(self): Destroys the current window
-        validate(self) : Validates the user's input and returns a boolean value indicating whether the input is valid or not.
 
     Attributes:
-        fen1 (Tk object): The main window object.
-        width (int): The width of the window.
-        height (int): The height of the window.
-        text (tkinter.StringVar): the text shown in the window.
-        label (ttk.Label): A label object used to display a message in the window.
-        label2 (ttk.Label): A label object used to display a message in the window.
-        L_photos (list): A list of ImageData objects.
-        can1 (tkinter.Canvas): A canvas widget used to display the images.
-        can2 (tkinter.Canvas): A canvas widget used to display the buttons for resetting the images or validating the user's choice.
-        chosen_number (int): The index of the chosen image in the L_photos list.
-        iteration (int): A counter used in the generate_image method.
+        fen1 (Tk object) :
+            The main window object.
+        width (int) :
+            The width of the window.
+        height (int) :
+            The height of the window.
+        text (tkinter.StringVar) :
+            The text shown in the window.
+        label (ttk.Label) :
+            A label object used to display a message in the window.
+        label2 (ttk.Label) :
+            A label object used to display a message in the window.
+        L_photos (list) :
+            A list of ImageData objects.
+        can1 (tkinter.Canvas) :
+            A canvas widget used to display the images.
+        can2 (tkinter.Canvas) :
+            A canvas widget used to display the buttons for resetting the images or validating the user's choice.
+        chosen_number (int) :
+            The index of the chosen image in the L_photos list.
+        iteration (int) :
+            A counter used in the generate_image method.
     """
 
     def __init__(self, string_titre):
@@ -48,8 +53,7 @@ class photo_win:
         Initializes the window and creates the widgets.
 
         input :
-            self(photo_win)
-            string_titre (str): The title of the window.
+            string_titre (str) : The title of the window.
         """
 
         self.win = Tk()
@@ -72,7 +76,8 @@ class photo_win:
         self.L_photos=[]
         self.L_photos=a.initialisation_Liste_5_premiers()
 
-        self.can_im = Canvas(self.win,bg='white',height=400,width=self.width)
+        s
+            self (photo_win)elf.can_im = Canvas(self.win,bg='white',height=400,width=self.width)
         self.can_im.pack(pady=100)
 
         self.can_text = Canvas(self.win,height=600,width=self.width)
@@ -88,11 +93,6 @@ class photo_win:
     def mise_a_j_img(self):
         """
         Updates the images displayed in the window
-
-        input :
-            self(photo_win)
-        output :
-
         """
 
         self.im1=ImageTk.PhotoImage(self.L_photos[0].im, master=self.win)
@@ -120,11 +120,6 @@ class photo_win:
     def reinitialise(self):
         """
         Switches the current window five images with five new images
-
-        input :
-            self(photo_win)
-        output :
-
         """
         for c in self.can_im.winfo_children():
            c.destroy()
@@ -141,11 +136,6 @@ class photo_win:
     def close_win(self):
         """
         Destroys the current window
-
-        input :
-            self(photo_win)
-        output :
-
         """
         self.win.destroy()
 
@@ -154,9 +144,7 @@ class photo_win:
         Chooses a random element from the list of options and returns it.
 
         input :
-            self(photo_win)
-            number(int): The number of options to choose from.
-        output :
+            number (int): The number of options to choose from.
 
         """
 
@@ -193,12 +181,6 @@ class photo_win:
     def generate_image(self):
         """
         Generates an image of the specified size with random pixels of the specified color palette.
-
-        input :
-            self(photo_win)
-            number(int): The number of options to choose from.
-        output :
-
         """
 
         self.iteration+=1
@@ -220,12 +202,6 @@ class photo_win:
     def validate(self) :
         """
         Validates the user's input and returns a boolean value indicating whether the input is valid or not.
-
-        input :
-            self(photo_win)
-
-        output :
-
         """
 
         choice_final=askokcancel(title="Confirmation de validation", message="Etes-vous sur de vouloir choisir cette photo comme photo finale ? ")

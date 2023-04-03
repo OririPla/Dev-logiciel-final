@@ -1,4 +1,6 @@
-# For retrain an existing autoencodeur
+"""
+For retrain an existing autoencodeur
+"""
 
 import Autoencodeur
 

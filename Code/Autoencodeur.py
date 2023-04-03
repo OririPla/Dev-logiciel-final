@@ -17,17 +17,19 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.callbacks import TensorBoard
 
-from sklearn.model_selection import train_test_split
+# from sklearn.model_selection import train_test_split
 
 ### Fonction definition ###
 
 def load_attr():
     """
-        Create the liste of filesnames and sexe of the images
-        input :
-        output :
-            sexe (list)
-            filesnames (list)
+    Create the liste of filesnames and sexe of the images
+
+    output :
+        sexe (list) :
+            List of the sex -1 (Female) or 1 (Male)
+        filesnames (list) :
+            List of all the filesnames we want to import
     """
     db=pd.read_csv('new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
     filesnames=list(db["nb_pic"])
@@ -37,15 +39,20 @@ def load_attr():
 
 def retrain(sexe,filenames,nb_images,start,plot=0):
     """
-        Fit the autoencodeur with nb_images new images, start with the start images of the dataset. Finally save the autoencodeur with the number num.
-        input :
-                sexe (list)
-                filenames (list)
-                nb_images (int)
-                start (int)
-                num (int)
-                plot (int)
-        output :
+    Fit the autoencodeur with nb_images new images, start with the start images of the dataset. Finally save the autoencodeur with the number num.
+
+    input :
+        sexe (list) :
+            List of the sex -1 (Female) or 1 (Male)
+        filenames (list) :
+            List of all the filesnames we want to retrain
+        nb_images (int) :
+            Number of images we want to retrain
+        start (int) :
+            Retrain start at the image start
+        plot (int) :
+            If 1 plot the result of the autoencoder (compare before and after autoencoder)
+
     """
 
     #Re-load the model to train it another time, we take another part of the dataset to do it
@@ -87,25 +94,29 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
 
     tf.keras.models.save_model(autoencoder_re,"autoencodeurFLATTEN4.tf")
 
-
-
-
-
     del(X_test)
     del(X_train)
 
 
 def import_images(nb_images,start,sexe,filesnames):
     """
-        Import images of the dataset. Import nb_images, strat with the images number start and take the same number of male and female.
-            input :
-                nb_images (int)
-                start (int)
-                sexe (list)
-                filesnames (list)
-            output :
-                x_data (numpy array)
-        """
+    To give numerotation to the images, import images of the dataset and import nb_images, strat with the images number start and take the same number of male and female.
+
+    input :
+        nb_images (int) :
+            Number of images we want Retrain start at the image start to import
+        start (int) :
+            Import start at the image start
+        sexe (list) :
+            List of the sex -1 (Female) or 1 (Male)
+        filesnames (list) :
+            List of all the filesnames we want to import
+
+    output :
+        x_data (numpy array) :
+            List of the images in their np.array form
+    """
+
     dataset_img='img_align_celeba'
     x=[]
     compt_Male=0
@@ -124,22 +135,23 @@ def import_images(nb_images,start,sexe,filesnames):
                 image=io.imread(f'{dataset_img}/{filesnames[i]}') #download image
                 image_resize=resize(image,(128,128)) #resize picture with size 128x128
                 x.append(image_resize)
-
-
     x_data=np.array(x) #transform list into numpy array
     x=None
     return(x_data)
 
 class AutoEncoder(Model):
     """
-        A class to represent the autoencodeur model with an encoder and a decoder
-        We can have different form of the latent space by commenting certain lines : we try 3 possibilities :
-            matrix (32,32,4)
-            matrix (16,16,2)
-            vector size 4096
-        Attributes :
-        Methods :
-            call
+    A class to represent the autoencodeur model with an encoder and a decoder
+    We can have different form of the latent space by commenting certain lines : we try 3 possibilities :
+        matrix (32,32,4)
+        matrix (16,16,2)
+        vector size 4096
+
+    Attributes :
+        encoder (keras.model) :
+            The encoder
+        decoder (keras.model) :
+            The decoder
     """
     def __init__(self):
         super(AutoEncoder, self).__init__()
@@ -163,6 +175,14 @@ class AutoEncoder(Model):
             layers.Conv2D(3, kernel_size=(3,3), activation='sigmoid', padding='same')])
 
     def call(self, x):
+        """
+        This function call the encoder to decod the images given with X
+        It's a test function
+
+        input :
+            x(np.array) :
+                The images into their initial form (in np.array) that will be encoded and then decoded
+        """
         encoded = self.encoder(x)
         decoded = self.decoder(encoded)
         return decoded

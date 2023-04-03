@@ -19,7 +19,6 @@ import math, random
 from importlib import reload
 
 import tensorflow as tf
-from tensorflow import keras
 from keras.models import Model
 from keras.callbacks import TensorBoard
 from keras import layers
@@ -41,16 +40,16 @@ def load_attr():
     """
     Create the liste of filesnames and sexe of the images
 
-    input :
-
     output :
-        sexe (list)
-        filesnames (list)
+        sexe (list) :
+            To use just some images at the start and not all images
+        filesnames (list) :
+            To give numerotation to the images
 
     """
 
    #db=pd.read_csv('new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
-    db=pd.read_csv('../../../f_annexes/f_annexes/new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
+    db=pd.read_csv('../../../f_annexes/new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
     filesnames=list(db["nb_pic"])
     sexe=list(db['Male'])
     return(sexe,filesnames)
@@ -58,17 +57,22 @@ def load_attr():
 # IMPORTATIONS OF THE IMAGES
 def import_images(sexe,filesnames,nb_images = 1000,start = 0):
     """
-        Import images of the dataset. Import nb_images, strat with the images number start and take the same number of male and female.
+    Import images of the dataset. Import nb_images, strat with the images number start and take the same number of male and female.
 
-        input :
-            nb_images (int) : number of images that we will use
-            start (int) : to use just some images at the start and not all images
-            sexe (list) : to know the sexe presented on the images
-            filesnames (list) : to give numerotation to the images
-        output :
-            x_data (numpy array)
+    input :
+        nb_images (int) :
+            Number of images that we will use
+        start (int) :
+            To use just some images at the start and not all images
+        sexe (list) :
+            To know the sexe presented on the images
+        filesnames (list) :
+            To give numerotation to the images
+    output :
+        x_data (numpy array) :
+            List of the images as np.array
 
-        """
+    """
     # dataset_img='img_align_celeba'
     x=[]
     compt_Male=0
@@ -108,10 +112,13 @@ def mutation_function_flatten(vec, lap) :
     The modification are random but depend of the lap : the more the lap is small, the more there are mutations
 
     input :
-        vec(np.array) : one vector (that represents a face in the latent space)
-        lap(int): the number of laps already completed vector
+        vec (np.array) :
+            One vector (that represents a face in the latent space)
+        lap (int) :
+            The number of laps already completed vector
     output :
-        vec(np.array) : the vector after modifications
+        vec (np.array) :
+            The vector after modifications
     """
     new_vec = vec.copy()
     n = len(vec)
@@ -170,11 +177,15 @@ def crossing_over_function_flatten(r, selected_pop, lap) :
     It depends of the selected vectors and of the lap
 
     input :
-        r(int) : the indice of the selected vector (of the list selected_pop) with which we willd do the crossing-over
-        selected_pop(np.array) : the vectors selected
-        lap(int) : the number of laps already completed
+        r (int) :
+            The indice of the selected vector (of the list selected_pop) with which we willd do the crossing-over
+        selected_pop (np.array) :
+            The vectors selected
+        lap (int) :
+            The number of laps already completed
     output :
-        new_pop[r] : the selected vector after the crossing over
+        new_pop[r] (np.array) :
+            The selected vector after the crossing over
     """
 
     new_pop = np.copy(selected_pop)
@@ -211,7 +222,8 @@ def initialisation_Liste_5_premiers():
     input :
 
     output :
-        List_images(list(np.array)) : list of the initial images as object "image_celeba"
+        List_images (list(np.array)) :
+            List of the initial images as object "image_celeba"
 
     """
 
@@ -239,11 +251,11 @@ def saving_images_and_getting_list_initial(P, list_img_non_encoded):
     list of the same images as object "image_celeba"
 
     input :
-        P(np.array) : the initial images into their encoded form
-        list_img_non_encoded(list) : the initial images into their form before the encoder
+        P (np.array) : the initial images into their encoded form
+        list_img_non_encoded (list) : the initial images into their form before the encoder
 
     output :
-        List_images(list(np.array)) : list of the initial images as object "image_celeba"
+        List_images (list(np.array)) : list of the initial images as object "image_celeba"
 
     """
 
@@ -271,10 +283,10 @@ def saving_images_and_getting_list(P):
     list of the same images as object "image_celeba"
 
     input :
-        P(np.array) : the selected images into their encoded form
+        P (np.array) : the selected images into their encoded form
 
     output :
-        List_images(list(np.array)) : list of the selected images as object "image_celeba"
+        List_images (list(np.array)) : list of the selected images as object "image_celeba"
 
     """
 
@@ -301,12 +313,12 @@ def generate_5_new_photos (img_list, img_number_choosen,lap):
     list of the same images as object "image_celeba"
 
     input :
-        img_list(list(image_celeba)) : list of the images as object "image_celeba" selected by the user
-        img_number_choosen(list(int)) : indices of the selected images in the previous P list
-        lap(int) : the number of laps already completed vector
+        img_list (list(image_celeba)) : list of the images as object "image_celeba" selected by the user
+        img_number_choosen (list(int)) : indices of the selected images in the previous P list
+        lap (int) : the number of laps already completed vector
 
     output :
-        List_images(list(np.array)) : list of the selected images as object "image_celeba"
+        List_images (list(np.array)) : list of the selected images as object "image_celeba"
 
     """
 

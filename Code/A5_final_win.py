@@ -8,27 +8,16 @@ class final_win:
     """
     A class to represent the final window of the application.
 
-    Methods:
-        __init__(self): Initializes the FinalWin object and creates the GUI.
-        close_win(self): Closes the final window.
-        reponse_oui(self): Handles the "Yes" button click and restarts the application.
-
     Attributes:
-        win : Tk
+        win (Tk) :
             The Tkinter root window for the application.
-        label_1 : Tkinter.ttk.Label
+        label_1 (Tkinter.ttk.Label) :
             The label widget for instructions.
     """
-    
+
     def __init__(self):
         """
         Initializes the final_win object and creates the GUI
-
-        input:
-            self(final_win)
-
-        output :
-
         """
         self.win = Tk()
         width= self.win.winfo_screenwidth()
@@ -50,12 +39,6 @@ class final_win:
     def close_win(self):
         """
         Closes the final window.
-
-        input:
-            self(final_win)
-
-        output :
-
         """
 
         #self.win.destroy()
@@ -64,12 +47,6 @@ class final_win:
     def reponse_oui(self):
         """
         Handles the affirmative "Oui" button and restarts the application
-
-        input:
-            self(final_win)
-
-        output :
-
         """
 
         # Return to the start

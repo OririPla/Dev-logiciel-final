@@ -10,17 +10,12 @@ class export_data_win:
     """
     A class to create a window for exporting data, with an image and two buttons.
 
-    Methods:
-        __init__(self, choosen_photo): Initializes the export_data_win class
-        close_win(self): Closes the export_data_win window
-        reponse_oui(self): Closes the current window and opens a new one for exporting data
-
     Attributes:
-        choosen : str
+        choosen (str):
             The file path of the chosen photo.
-        win : Tkinter.Tk
+        win (Tkinter.Tk):
             The window object.
-        label_1 : Tkinter.ttk.Label
+        label_1 (Tkinter.ttk.Label):
             The label widget for instructions.
 
     """
@@ -29,11 +24,8 @@ class export_data_win:
         """
         Initializes the export_data_win class.
 
-        input :
-            self(export_data_win)
-            choosen_photo: A PhotoImage object representing the chosen photo to display.
-        output :
-
+        input:
+            choosen_photo (str) : file path of the chosen photo, which is a PhotoImage object representing the chosen photo to display.
         """
 
         print(choosen_photo)
@@ -70,24 +62,13 @@ class export_data_win:
     def close_win(self):
         """
         Closes the export_data_win window.
-
-        input :
-            self(export_data_win)
-
-        output :
-
         """
+
         self.win.destroy()
 
     def reponse_oui(self):
         """
         Closes the current window and opens a new one for exporting data.
-
-        input :
-            self(export_data_win)
-
-        output :
-
         """
 
         self.close_win()

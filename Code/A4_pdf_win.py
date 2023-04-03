@@ -15,33 +15,27 @@ import A5_final_win as f
 class pdf_win:
     """
     A class that generates a window to obtain input from the user and generate a PDF file.
-    Methods:
-        __init__(self, choosen_photo): Initializes the class by creating the window and widgets
-        get_data(self): Retrieves the user input and formats it into a string to show to the user
-        close_win(self): Destroys the window
-        validate(self): Generates the pdf, retrieves the information and opens the last window of gratitudes.
-
 
     Attributes:
-        choosen_photo : str
+        choosen_photo (str) :
             The file path of the chosen photo.
-        win : Tkinter.Tk
+        win (Tkinter.Tk) :
             The window object.
-        label_1 : Tkinter.ttk.Label
+        label_1 (Tkinter.ttk.Label) :
             The label widget for instructions.
-        lname_entry : Tkinter.Entry
+        lname_entry (Tkinter.Entry) :
             The entry widget for last name input.
-        fname_entry : Tkinter.Entry
+        fname_entry (Tkinter.Entry) :
             The entry widget for first name input.
-        date_entry : Tkinter.Entry
+        date_entry (Tkinter.Entry) :
             The entry widget for date of birth input.
-        recap : Tkinter.Label
+        recap (Tkinter.Label) :
             The label widget for showing the user input.
-        b_gen_pdf : Tkinter.Button
+        b_gen_pdf (Tkinter.Button) :
             The button widget to generate PDF.
-        T : str
+        T (str) :
             A string that holds the formatted user input.
-        t : list of str
+        t (list of str) :
             A list of strings that holds the unformatted user input.
     """
 
@@ -50,11 +44,9 @@ class pdf_win:
         Initializes the class by creating the window and widgets
 
         input:
-            self(pdf_win)
-            choosen_photo(str): The file path of the chosen photo
+            choosen_photo (str):
+                The file path of the chosen photo
 
-        output :
-        
         """
         self.win = Tk() # win : Tkinter.Tk -> The window object.
         self.choosen=choosen_photo
@@ -102,12 +94,6 @@ class pdf_win:
     def get_data(self) :
         """
         Retrieves the user input and formats it into a string to show to the user
-
-        input :
-            self(pdf_win)
-
-        output :
-
         """
 
         self.t=["VOICI LE RECAPITULATIF DE VOS INFORMATIONS :", "Nom : ", self.lname_entry.get(), "Prénom : ", self.fname_entry.get(), "Date de naissance : ", self.date_entry.get(), "Si les informations ci-dessus sont correctes, vous pouvez valider. \n Sinon, vous pouvez encore les modifier et appuyer à nouveau sur entrer."," Les informations seront générées sous format PDF avec pour nom de fichier : infos.pdf "]
@@ -119,24 +105,12 @@ class pdf_win:
     def close_win(self):
         """
         Destroys the window
-
-        input :
-            self(pdf_win)
-
-        output :
-
         """
         self.win.destroy()
 
     def validate( self ):
         """
         Generates the pdf, retrieves the information and opens the last window of gratitudes.
-
-        input :
-            self(pdf_win)
-
-        output :
-
         """
 
         #Creattion of the window with the PDF

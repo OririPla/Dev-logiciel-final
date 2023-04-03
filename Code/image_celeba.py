@@ -9,23 +9,16 @@ class image_celeba :
     """
     A class to handle CelebA dataset images and resizing.
 
-    Methods:
-        __init__(self, afilename, anumber, matrix, P): initialisation of the object image_celeba
-        get_filename_jpg()
-            Returns the filename of the jpg file.
-        RESIZING(x, y)
-            Resize the image to fit in a (x,y) box and save the resized image.
-
     Attributes:
-        filename_jpg : str
+        filename_jpg (str) :
             The path of the jpg file.
-        number : int
+        number (int) :
             The number of the image in the dataset.
-        matrix : list
+        matrix (list) :
             A 40x2 matrix of features.
-        P : np.array
+        P (np.array) :
             The list of the images into their encoded form, so it's a list of vector
-        im : PIL.Image
+        im (PIL.Image) :
             The image object.
 
     """
@@ -35,14 +28,14 @@ class image_celeba :
         Initialisation of the object image_celeba
 
         input:
-            self(image_celeba)
-            afilename (str): The path of the jpg file.
-            anumber (int) : The number of the image in the dataset.
-            matrix (list) : A 40x2 matrix of features.
-            P (np.array) : the list of the images into their encoded form, so it's a list of vector
-
-        output :
-
+            afilename (str):
+                The path of the jpg file.
+            anumber (int) :
+                The number of the image in the dataset.
+            matrix (list) :
+                A 40x2 matrix of features.
+            P (np.array) :
+                The list of the images into their encoded form, so it's a list of vector
         """
 
         self.filename_jpg=afilename
@@ -55,12 +48,6 @@ class image_celeba :
     def get_filename_jpg(self):
         """
         Returns the filename of the jpg file.
-
-        input:
-            self(image_celeba)
-
-        output :
-
         """
         return self.filename_jpg
 
@@ -69,11 +56,10 @@ class image_celeba :
         Resize the image to fit in a (x,y) box and save the resized image.
 
         input:
-            self(image_celeba)
-            x(int): The width of the box.
-            y(int): The height of the box.
-
-        output :
+            x (int) :
+                The width of the box.
+            y (int) :
+                The height of the box.
 
         """
         #resize image and keep ratio
