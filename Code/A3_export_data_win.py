@@ -5,6 +5,7 @@ from PIL import Image,  ImageTk
 
 ### CLASS IMPORTATION
 import A4_pdf_win as p
+import image_celeba as i
 
 class export_data_win:
     """
@@ -21,7 +22,7 @@ class export_data_win:
         """
         Initializes the export_data_win class.
         input:
-            choosen_photo (str) : file path of the chosen photo, which is a PhotoImage object representing the chosen photo to display.
+            choosen_photo (image_celeba) : a image_celeba object linked to the chosen photo to display.
         """
         self.choosen=choosen_photo
         self.win = Tk()
@@ -33,7 +34,7 @@ class export_data_win:
         self.label_1.pack()
 
     
-        im1=ImageTk.PhotoImage(self.choosen)
+        im1=ImageTk.PhotoImage(self.choosen.im)
         lab_image = tk.Label(image=im1)
         lab_image.pack()
         
@@ -60,8 +61,6 @@ class export_data_win:
         Closes the current window and opens a new one for exporting data.
         """
         self.close_win()
-        p.pdf_win(self.choosen)
-        print( "starting" )
+        print("filename =", self.choosen.filename_jpg)
+        p.pdf_win(self.choosen.filename_jpg)
 
-#####    MAIN test   ######
-#export_data_win()

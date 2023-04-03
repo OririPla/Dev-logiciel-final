@@ -15,6 +15,7 @@ path=str(pathlib.Path(__file__).parent.resolve().parent.resolve())
 
 ### CLASS IMPORTATION
 import A5_final_win as f
+import image_celeba as imc
 
 class pdf_win:
     """
@@ -42,19 +43,19 @@ class pdf_win:
             A list of strings that holds the unformatted user input.
     """
 
-    def __init__(self, choosen_photo):
+    def __init__(self, choosen_photo_name):
         """
         Initializes the class by creating the window and widgets
         input:
-            choosen_photo (str):
+            choosen_photo_name (str):
                 The file path of the chosen photo
         """
         self.win = Tk()
-        self.choosen=choosen_photo
         width= self.win.winfo_screenwidth()
         height= self.win.winfo_screenheight()
         self.win.geometry("%dx%d" % (width, height))
         self.win.title("Exporter vos données")
+        self.photo_name=choosen_photo_name
 
         self.label_1 = ttk.Label(self.win, text="Renseigner vos informations :" )
         self.label_1.pack(pady=20)
@@ -85,12 +86,10 @@ class pdf_win:
 
 
         #Inititalize a Label widget
-        self.recap= Label(self.win, text="", font=('Helvetica 13'))
+        self.recap= Label(self.win, text="", font=('Helvetica 14'))
         self.recap.pack()
         self.b_gen_pdf=Button(self.win,text='Générer PDF ', command= self.validate)
 
-        remerciements_label = ttk.Label(self.win, text="Remerciements à Sergio Peignier et Lisa Chabrier pour nous avoir guider sur ce projet" )
-        remerciements_label.pack()
 
         self.win.mainloop()
 
@@ -100,10 +99,10 @@ class pdf_win:
         Retrieves the user input and formats it into a string to show to the user
         """
 
-        self.t=["VOICI LE RECAPITULATIF DE VOS INFORMATIONS :", "Nom : ", self.lname_entry.get(), "Prénom : ", self.fname_entry.get(), "Date de naissance : ", self.date_entry.get(), "Si les informations ci-dessus sont correctes, vous pouvez valider. \n Sinon, vous pouvez encore les modifier et appuyer à nouveau sur entrer."," Les informations seront générées sous format PDF avec pour nom de fichier : infos.pdf "]
+        self.t=["VOICI LE RECAPITULATIF DE VOS INFORMATIONS :", "Nom : ", self.lname_entry.get(), "Prénom : ", self.fname_entry.get(), "Date de naissance : ", self.date_entry.get(), "Si les informations ci-dessus sont correctes, vous pouvez valider. \n Sinon, vous pouvez encore les modifier et appuyer à nouveau sur entrer."," Les informations seront générées sous format PDF avec pour nom de fichier : Finalinfos.pdf "]
         self.T=self.t[0]+"\n \n" + self.t[1]+self.t[2]+"\n"+self.t[3]+self.t[4]+"\n"+ self.t[5]+self.t[6]+"\n\n\n\n"+self.t[7]+"\n"+self.t[8]
         # print(self.t)
-        self.recap.config(text=self.T, font= ('Helvetica 13'))
+        self.recap.config(text=self.T, font= ('Helvetica 14'))
         self.b_gen_pdf.pack()
 
     def close_win(self):
@@ -121,19 +120,24 @@ class pdf_win:
         monPdf.add_page()
         monPdf.set_font("Arial", size=12)
 
-        #Image_choisie=Image.open(self.choosen)
-        #monPdf.image(Image_choisie, x = 85, y = 32.5, type = '', link = '')
-        monPdf.cell(200, 10, txt="Récapitulatif de votre portrait robot", ln=1, align="C")
-        monPdf.cell(0, 50, txt=self.t[0], ln=1, align="C")
+        monPdf.cell(200, 10, txt="Rapport Final", border = 1, ln=1, align="C", fill = False)
+        monPdf.set_font("Times", "B", size=20)
+        monPdf.cell(0, 80, "Portrait simulé du sujet observé en activité criminelle.", ln=1, align="C")
+        monPdf.image(self.photo_name, x=85, y = 92.5)
 
-        # im1 = ImageTk.PhotoImage(self.choosen.im, master=self.win)
-        # monPdf.image(im1, 10, 10, 8, 33)
+        monPdf.set_font("Times", "I", size=20)
+        monPdf.cell(0, 100, txt=self.t[0], ln=1, align="C")
 
-        #j = 0
         for i in range(1,7):
+            monPdf.set_font('Arial', '', 16)
             monPdf.cell(0,10, txt = self.t[i], ln=1, align="C")
             monPdf.ln(1)
-            #j += 10
+
+        
+        
+
+    
+
         monPdf.output(path+"infos.pdf")
 
         self.close_win()

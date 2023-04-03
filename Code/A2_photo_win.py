@@ -132,6 +132,7 @@ class photo_win:
         t="Images réinitialisées. Choississez une image (ou plusieurs) qui correspond(ent) le plus en cliquant dessus"
         self.text.set(t)
         self.chosen_number=[]
+        self.iteration=0
         self.L_photos=a.initialisation_Liste_5_premiers()
         self.mise_a_j_img()
 
@@ -206,7 +207,7 @@ class photo_win:
         if choice_final :
             self.close_win()
 
-            chosen_photo=self.L_photos[self.chosen_number[0]].im
+            chosen_photo=self.L_photos[self.chosen_number[0]]
             e.export_data_win(chosen_photo)
 
 

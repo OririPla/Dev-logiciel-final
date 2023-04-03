@@ -47,13 +47,13 @@ class first_win:
         self.win.geometry("%dx%d" % (width, height))
         self.win.title(string_titre)
 
-        self.label1 = ttk.Label( self.win, text="Bonjour et bienvenue, logiciel de déposition de plainte par portrait robot." )
+        self.label1 = ttk.Label( self.win, text="Bonjour et bienvenue dans ce logiciel de déposition de plainte par portrait robot." )
         self.label1.pack(pady=100)
 
-        self.label2 = ttk.Label( self.win, text="Nous allons  vous montrer des photos et vous pourrez en choisirez une ou deux." )
+        self.label2 = ttk.Label( self.win, text="Nous allons vous montrer des photos et vous pourrez en choisir une ou plusieurs." )
         self.label2.pack(pady=10)
 
-        self.button_tuto = ttk.Button( self.win, text="Tutoriel",
+        self.button_tuto = ttk.Button( self.win, text="Tutoriel pour comprendre le logiciel",
                                    command=self.tuto )
         self.button_tuto.pack(pady=100)
 

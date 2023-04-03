@@ -1,4 +1,3 @@
-
 from tkinter import *
 from tkinter import ttk
 import  tkinter as tk
@@ -25,13 +24,18 @@ class final_win:
         self.win.geometry("%dx%d" % (width, height))
         self.win.title("FINAL")
 
-        self.label_1 = ttk.Label(self.win, text="C'est la fin du logiciel. On espère que tout s'est déroulé comme vous le souhaitiez. licence.. remerciements.. souhaitez vous  refaire ?" )
+        self.label_1 = ttk.Label(self.win, text="C'est la fin du logiciel. On espère que tout s'est déroulé comme vous le souhaitiez. " )
         self.label_1.pack(pady=20)
 
+        remerciements_label = ttk.Label(self.win, text="Remerciements à Sergio Peignier, Lisa Chabrier et David Parson pour nous avoir aidées tout au long du projet" )
+        remerciements_label.pack()
 
-        Button(self.win,text='Oui ', command= self.reponse_oui).pack()
+        label_2 = ttk.Label(self.win, text=" Souhaitez-vous recommencer ? " )
+        label_2.pack(pady=20)
 
-        exit_button = Button(self.win, text="Non et quitter logiciel", command=self.win.destroy)
+        Button(self.win,text='Oui ! ', command= self.reponse_oui).pack()
+
+        exit_button = Button(self.win, text="Non et quitter le logiciel", command=self.win.destroy)
         exit_button.pack(pady=30)
 
         self.win.mainloop()
