@@ -26,7 +26,7 @@ from keras import layers
 
 
 #to hide warning about tensorflow, hides but doens't rebuild
-#but then also doen't hide 
+#but then also doen't hide
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import image_celeba as ic
@@ -235,14 +235,14 @@ def saving_images_and_getting_list(P):
         plt.title("reconstructed")
         plt.gray()
         ax.get_xaxis().set_visible(False)
-        ax.get_yaxis().set_visible(False)   
+        ax.get_yaxis().set_visible(False)
         jpg_name="IMG/Test_Celeb_"+str(i)+".jpg"
         plt.imsave(jpg_name, decoded_imgs[i])
         im=ic.image_celeba(jpg_name, i,P[i],P)
         List_images.append(im)
         print(im.number)
         print(jpg_name)
-        
+
 
     return List_images
 
@@ -264,7 +264,7 @@ def generate_5_new_photos (img_choosen,lap):
     decoded_imgs = decodeur.predict(img_choosen.P)
 
     #nb = nombre image choisie commence à zero et a recuperer depuis l'interface
-   
+
     nb=img_choosen.number
     print("algo generate:you choser image"+str(nb))
     vec_selected = img_choosen.matrix # the vector selected by the user
@@ -276,9 +276,7 @@ def generate_5_new_photos (img_choosen,lap):
         new_P[i] = crossing_over_function(sorted_P, Tc, lap)
     P = new_P
 
-    #saving the new photos 
+    #saving the new photos
     List_new_images=saving_images_and_getting_list(P)
-    
+
     return List_new_images
-
-

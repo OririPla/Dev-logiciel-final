@@ -1,6 +1,6 @@
-# For train the autoencoder for the first time
+# For train the autoencoder for the first time 
 
-### Import ###
+### Import ### 
 
 import Autoencodeur
 import pandas as pd
@@ -11,7 +11,7 @@ import random
 import tensorflow as tf
 
 
-### Code ###
+### Code ### 
 
 nb_images=10000 #The dataset is too big, so we only take 1000 images
 
@@ -36,7 +36,7 @@ autoencoder.fit(X_train, X_train,
                 validation_data=(X_test, X_test))
 
 #Save the model
-tf.keras.models.save_model(autoencoder,"autoencodeurFLATTEN4.tf") #save autoencoder
+tf.keras.models.save_model(autoencoder,"../autoencodeurFLATTEN4.tf") #save autoencoder
 # tf.keras.models.save_model(autoencoder.encoder,"../modele_entraine/encodeur/encodeurFlatten.tf") #save encoder
 # tf.keras.models.save_model(autoencoder.decoder,"../modele_entraine/decodeur/decodeurFlatten.tf") #save decoder
 

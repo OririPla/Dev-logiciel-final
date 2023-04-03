@@ -1,4 +1,4 @@
-#### Import ####
+### Import ####
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,13 +24,10 @@ from sklearn.model_selection import train_test_split
 def load_attr():
     """
         Create the liste of filesnames and sexe of the images
-
         input :
-
         output :
             sexe (list)
             filesnames (list)
-
     """
     db=pd.read_csv('new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
     filesnames=list(db["nb_pic"])
@@ -41,7 +38,6 @@ def load_attr():
 def retrain(sexe,filenames,nb_images,start,plot=0):
     """
         Fit the autoencodeur with nb_images new images, start with the start images of the dataset. Finally save the autoencodeur with the number num.
-
         input :
                 sexe (list)
                 filenames (list)
@@ -49,9 +45,7 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
                 start (int)
                 num (int)
                 plot (int)
-
         output :
-
     """
 
     #Re-load the model to train it another time, we take another part of the dataset to do it
@@ -104,16 +98,13 @@ def retrain(sexe,filenames,nb_images,start,plot=0):
 def import_images(nb_images,start,sexe,filesnames):
     """
         Import images of the dataset. Import nb_images, strat with the images number start and take the same number of male and female.
-
             input :
                 nb_images (int)
                 start (int)
                 sexe (list)
                 filesnames (list)
-
             output :
                 x_data (numpy array)
-
         """
     dataset_img='img_align_celeba'
     x=[]
@@ -146,10 +137,7 @@ class AutoEncoder(Model):
             matrix (32,32,4)
             matrix (16,16,2)
             vector size 4096
-
-
         Attributes :
-
         Methods :
             call
     """

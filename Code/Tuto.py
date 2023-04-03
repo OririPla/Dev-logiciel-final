@@ -1,0 +1,64 @@
+from tkinter import *
+from tkinter import ttk
+import  tkinter as tk
+
+
+
+from PIL import ImageTk, Image
+
+class tutoriel:
+    def __init__(self):
+        self.win = Tk()
+        width= self.win.winfo_screenwidth()
+        height= self.win.winfo_screenheight()
+        self.win.geometry("550x750")
+        self.win.title("Tutoriel")
+
+
+        # set up the images
+        image1 = ImageTk.PhotoImage(Image.open("../../../IMG/tuto/Ima_tuto_1.png").resize((600, 350)), master=self.win)
+        image2 = ImageTk.PhotoImage(Image.open("../../../IMG/tuto/Ima_tuto_2.png").resize((600, 350)), master=self.win)
+        image3 = ImageTk.PhotoImage(Image.open("../../../IMG/tuto/Ima_tuto_3.png").resize((600, 350)), master=self.win)
+        image4 = ImageTk.PhotoImage(Image.open("../../../IMG/tuto/Ima_tuto_4.png").resize((600, 350)), master=self.win)
+        image5 = ImageTk.PhotoImage(Image.open("../../../IMG/tuto/Ima_tuto_5.png").resize((600, 350)), master=self.win)
+        image6 = ImageTk.PhotoImage(Image.open("../../../IMG/tuto/Ima_tuto_6.png").resize((600, 350)), master=self.win)
+        # add them to the list
+        self.image_list = [image1, image2, image3, image4, image5,image6]
+        # counter integer
+        self.counter = 0
+
+        # change image function
+
+        self.tuto_end= ttk.Button( self.win, text="Quitter",command=self.close_win )
+        self.tuto_end.pack(side="bottom", pady=10)
+
+        # set up the components
+        self.imageLabel = Label(self.win, image=image1)
+        self.infoLabel = Label(self.win, text="Image 1 of 5", font="Helvetica, 20")
+        #button_f = Button(self.win, text="Suivant --> ", width=15, height=2, bg="black", fg="white", command=lambda: self.ChangeImage(1))
+        button_f = Button(self.win, text="Suivant --> ", width=15, height=2, command=lambda: self.ChangeImage(1))
+        # button_r = Button(self.win, text="<-- Précédent", width=15, height=2, bg="black", fg="white", command=lambda: self.ChangeImage(-1))
+        button_r = Button(self.win, text="<-- Précédent", width=15, height=2, command=lambda: self.ChangeImage(-1))
+        # display the components
+        self.imageLabel.pack()
+        self.infoLabel.pack()
+        button_r.pack(side=LEFT, padx=30)
+        button_f.pack(side=RIGHT, padx=30)
+
+
+        self.win.mainloop()
+
+
+    def close_win(self):
+        self.win.destroy()
+
+    def ChangeImage(self, infos_avance_retour):
+        self.counter += infos_avance_retour
+        if self.counter > len(self.image_list) - 1:
+            self.counter = 0
+
+        self.imageLabel.config(image=self.image_list[self.counter])
+        self.infoLabel.config(text="Image " + str(self.counter + 1) + " of " + str(len(self.image_list)))
+
+
+# tutoriel()
