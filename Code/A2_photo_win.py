@@ -2,8 +2,10 @@
 from tkinter import *
 from tkinter import ttk
 import  tkinter as tk
+import PIL
 from tkinter.messagebox import *
-from PIL import ImageTk, Image
+from PIL import ImageTk
+from PIL import Image
 
 #Path
 import pathlib
@@ -73,7 +75,7 @@ class photo_win:
         end_button = Button(self.win, text="Ré-initialiser", command=self.reinitialise)
         end_button.pack()
 
-        
+
         self.L_photos=[]
         self.L_photos=a.initialisation_Liste_5_premiers()
 
@@ -86,12 +88,12 @@ class photo_win:
         self.chosen_number=[]
         self.iteration =0
          ### pas utilisé ?
-    
+
         #celeba
         self.mise_a_j_img()
 
         self.win.mainloop()
-    
+
     def mise_a_j_img(self):
         """
         Updates the images displayed in the window
@@ -110,7 +112,7 @@ class photo_win:
 
         self.b3 = tk.Button(self.can_im, image=self.im3, highlightcolor="green", highlightthickness=3, activebackground='green', command=lambda: self.choice(2))
         self.b3.pack(side = LEFT, padx=10)
-    
+
         self.b4 = tk.Button(self.can_im, image=self.im4, highlightcolor="green", highlightthickness=3, activebackground='green', command=lambda: self.choice(3))
         self.b4.pack(side = LEFT, padx=10)
 
@@ -123,10 +125,10 @@ class photo_win:
         Switches the current window five images with five new images
         """
         for c in self.can_im.winfo_children():
-           c.destroy() 
+           c.destroy()
 
         for c in self.can_text.winfo_children():
-           c.destroy() 
+           c.destroy()
         t="Images réinitialisées. Choississez une image (ou plusieurs) qui correspond(ent) le plus en cliquant dessus"
         self.text.set(t)
         self.chosen_number=[]
@@ -150,7 +152,7 @@ class photo_win:
             self.chosen_number.remove(number)
         else :
             self.chosen_number.append(number)
-        
+
         for c in self.can_text.winfo_children():
            c.destroy()
 
@@ -172,7 +174,7 @@ class photo_win:
             self.label.pack(pady=20)
             end_button = Button(self.can_text, text="Générer d'autres photos à partir de celles choisies", command=self.generate_image)
             end_button.pack(pady=20)
-    
+
 
         #l.loading_window()
 
@@ -186,15 +188,15 @@ class photo_win:
 
         t="Choississez à nouveau l'image qui correspond le plus en cliquant dessus (itération : " + str(self.iteration) + " )"
         self.text.set(t)
-        
+
         for c in self.can_im.winfo_children():
-           c.destroy() 
+           c.destroy()
 
         for c in self.can_text.winfo_children():
-           c.destroy() 
+           c.destroy()
 
         self.mise_a_j_img()
-        
+
 
     def validate(self) :
         """

@@ -42,7 +42,7 @@ def load_attr():
         filesnames (list) :
             To give numerotation to the images
     """
-    
+
     db=pd.read_csv(path+'/f_annexes/new_list_attr_celba.csv',sep=",",usecols=['nb_pic','Male'],low_memory=False)
     file=open(path+"/f_annexes/filesnames607.txt", "r")
     filesnames=[]
@@ -119,7 +119,7 @@ def mutation_function_flatten(vec, lap) :
     """
     new_vec = vec.copy()
     n = len(vec)
-    new_vec += np.random.randn(n).reshape(new_vec.shape)*(30-lap)*0.5
+    new_vec += np.random.randn(n).reshape(new_vec.shape)*(30-lap)*0.6
 
     return new_vec
 
@@ -193,16 +193,19 @@ def crossing_over_function_flatten(r, selected_pop, lap) :
         for indc in range(0,shape[0]) : # each loop corresponds to a crossing over with the vector at indice "indc" in the selected_pop
             if indc != r :
                 if lap < 10 :
-                    for l in range(0, 2) :
+                    i = 0
+                    j = int(shape[1]/6) ; print("j",j)
+                    for l in range(0, 3) :
                         # Positions in the selected vector (= selected_pop[r]) that will be exchanged :
-                        pos_x1 = random.randint(0, shape[1]-1)
-                        pos_x2 = random.randint(0, shape[1]-1)
+                        pos_x1 = random.randint(i, i + j -1)
+                        pos_x2 = random.randint(i, i + j -1)
                         # Values of the selected vector that will be exchanged with the vector at indice "indc" :
                         v_selected = selected_pop[r][min(pos_x1,pos_x2):max(pos_x1,pos_x2) + 1]
                         # We define a new vector cp (for copy) that takes all the values that will be exchanged (v_selected) of the vector at indice "indc"
                         cp = selected_pop[indc][min(pos_x1,pos_x2):max(pos_x1,pos_x2) + 1]
                         # We replace the values v_selected of the selected vector by the values cp of the vector at indice "indc"
                         new_pop[r][min(pos_x1,pos_x2):max(pos_x1,pos_x2) + 1] = cp
+                        i += j ; print("i", i)
                 else :
                     pos_x1 = random.randint(0, shape[1]-1)
                     pos_x2 = random.randint(0, shape[1]-1)
@@ -281,7 +284,7 @@ def saving_images_and_getting_list(P):
     for i in range(nb_faces):
         ##### Save the images into format jpg
         # Display reconstruction
-        plt.clf() 
+        plt.clf()
         ax = plt.subplot(2, nb_faces, i + 1 + nb_faces)
         plt.imshow(tf.squeeze(decoded_imgs[i]))
         ax.get_xaxis().set_visible(False)
