@@ -34,9 +34,8 @@
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -169,56 +168,66 @@
 
 
 <div class="viewcode-block" id="image_celeba"><a class="viewcode-back" href="../image_celeba.html#image_celeba.image_celeba">[docs]</a><span class="k">class</span> <span class="nc">image_celeba</span> <span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to handle CelebA dataset images and resizing.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        filename_jpg (str) :</span>
+<span class="sd">            The path of the jpg file.</span>
+<span class="sd">        number (int) :</span>
+<span class="sd">            The number of the image in the dataset.</span>
+<span class="sd">        matrix (list) :</span>
+<span class="sd">            A 40x2 matrix of features.</span>
+<span class="sd">        P (np.array) :</span>
+<span class="sd">            The list of the images into their encoded form, so it&#39;s a list of vector</span>
+<span class="sd">        im (PIL.Image) :</span>
+<span class="sd">            The image object.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">afilename</span><span class="p">,</span> <span class="n">anumber</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">P</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialisation of the object image_celeba</span>
+
+<span class="sd">        input:</span>
+<span class="sd">            afilename (str):</span>
+<span class="sd">                The path of the jpg file.</span>
+<span class="sd">            anumber (int) :</span>
+<span class="sd">                The number of the image in the dataset.</span>
+<span class="sd">            matrix (list) :</span>
+<span class="sd">                A 40x2 matrix of features.</span>
+<span class="sd">            P (np.array) :</span>
+<span class="sd">                The list of the images into their encoded form, so it&#39;s a list of vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">filename_jpg</span><span class="o">=</span><span class="n">afilename</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="o">=</span><span class="n">anumber</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">=</span><span class="n">matrix</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="o">=</span><span class="n">P</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename_jpg</span><span class="p">)</span>
 
-    <span class="c1"># methode nécessaire ?</span>
 <div class="viewcode-block" id="image_celeba.get_filename_jpg"><a class="viewcode-back" href="../image_celeba.html#image_celeba.image_celeba.get_filename_jpg">[docs]</a>    <span class="k">def</span> <span class="nf">get_filename_jpg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the filename of the jpg file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename_jpg</span></div>
 
-<div class="viewcode-block" id="image_celeba.RESIZING"><a class="viewcode-back" href="../image_celeba.html#image_celeba.image_celeba.RESIZING">[docs]</a>    <span class="k">def</span> <span class="nf">RESIZING</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span> 
+<div class="viewcode-block" id="image_celeba.RESIZING"><a class="viewcode-back" href="../image_celeba.html#image_celeba.image_celeba.RESIZING">[docs]</a>    <span class="k">def</span> <span class="nf">RESIZING</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resize the image to fit in a (x,y) box and save the resized image.</span>
+
+<span class="sd">        input:</span>
+<span class="sd">            x (int) :</span>
+<span class="sd">                The width of the box.</span>
+<span class="sd">            y (int) :</span>
+<span class="sd">                The height of the box.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">#resize image and keep ratio</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
         <span class="c1">#self.im.save(&#39;resized_&#39;+self.filename_jpg)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename_jpg</span><span class="p">)</span></div></div>
-
-
-<span class="c1">#main</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">fen1 = Tk()</span>
-<span class="sd">width= fen1.winfo_screenwidth()</span>
-<span class="sd">height= fen1.winfo_screenheight()</span>
-<span class="sd">fen1.geometry(&quot;%dx%d&quot; % (width, height))</span>
-<span class="sd">fen1.title(&quot;test&quot;)</span>
-
-
-<span class="sd">label = ttk.Label(fen1, text=&quot;Bonjour et bienvenue, logiciel de déposition de plainte par portrait robot. Nous allons  vous montrer des photos et vous en choisirez certaines&quot; )</span>
-<span class="sd">label.pack()</span>
-
-<span class="sd">#creation image olivetti</span>
-<span class="sd">test_img=image_celeba(&quot;IMG/000010.jpg&quot;, 1)</span>
-<span class="sd">test_img_resized=test_img.RESIZING(110,110)</span>
-<span class="sd">#peut que diminuer</span>
-<span class="sd">print(test_img.filename_jpg)</span>
-
-
-<span class="sd">render = ImageTk.PhotoImage(test_img.im)</span>
-
-<span class="sd">#img = Label(fen1, image=render)</span>
-<span class="sd">#img.image = render</span>
-<span class="sd">#img.pack()</span>
-
-<span class="sd">b1 = tk.Button(fen1, image=render)</span>
-<span class="sd">b1.pack()</span>
-
-<span class="sd">fen1.mainloop()</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 
            </div>
@@ -230,7 +239,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2023, Pauline Le Corre, Sarah Corallo, Oriane Plantec, Lea Aguilhon, Dana Moreno.
+        &#169; Copyright 2023, Lea Aguilhon, Sarah Corallo, Pauline Le Corre,  Dana Moreno, Oriane Plantec.
 
     </p>
   </div>

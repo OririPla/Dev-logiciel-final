@@ -15,7 +15,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../Module'))
+sys.path.insert(0, os.path.abspath('../../'))
 import mock
 MOCK_MODULES = ['tensorflow.keras.callbacks','tensorflow.keras.models','tensorflow.keras','keras.models','cv2','numpy','matplotlib','PIL','fpdf','matplotlib.pyplot','pandas','skimage','skimage.transform','tensorflow','tensorflow.keras','tensorflow.keras.models','tensorflow.keras.callbacks','sklearn']
 for mod_name in MOCK_MODULES:
@@ -25,7 +25,7 @@ for mod_name in MOCK_MODULES:
 # -- Project information -----------------------------------------------------
 
 project = 'Software development'
-copyright = '2023, Pauline Le Corre, Sarah Corallo, Oriane Plantec, Lea Aguilhon, Dana Moreno'
+copyright = '2023, Lea Aguilhon, Sarah Corallo, Pauline Le Corre,  Dana Moreno, Oriane Plantec'
 author = 'Pauline Le Corre, Sarah Corallo, Oriane Plantec, Lea Aguilhon, Dana Moreno'
 
 # The short X.Y version
@@ -73,7 +73,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -95,7 +95,7 @@ html_theme = 'renku'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -194,3 +194,5 @@ epub_exclude_files = ['search.html']
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+autodoc_mock_imports = ['tensorflow.compat','tensorflow','sklearn']

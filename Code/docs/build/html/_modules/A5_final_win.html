@@ -34,9 +34,8 @@
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -168,38 +167,58 @@
 
 
 <div class="viewcode-block" id="final_win"><a class="viewcode-back" href="../A5_final_win.html#A5_final_win.final_win">[docs]</a><span class="k">class</span> <span class="nc">final_win</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to represent the final window of the application.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        win (Tk) :</span>
+<span class="sd">            The Tkinter root window for the application.</span>
+<span class="sd">        label_1 (Tkinter.ttk.Label) :</span>
+<span class="sd">            The label widget for instructions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the final_win object and creates the GUI</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
         <span class="n">width</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">winfo_screenwidth</span><span class="p">()</span>
         <span class="n">height</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">winfo_screenheight</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">x</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;FINAL&quot;</span><span class="p">)</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">label_1</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;C&#39;est la fin du logiciel. On espère que tout s&#39;est déroulé comme vous le souhaitiez. licence.. remerciements.. souhaitez vous  refaire ?&quot;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_1</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-        
-      
+
+
         <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Oui &#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reponse_oui</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
-        
+
         <span class="n">exit_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Non et quitter logiciel&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
         <span class="n">exit_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
 
 <div class="viewcode-block" id="final_win.close_win"><a class="viewcode-back" href="../A5_final_win.html#A5_final_win.final_win.close_win">[docs]</a>    <span class="k">def</span> <span class="nf">close_win</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Closes the final window.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c1">#self.win.destroy()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close_win</span><span class="p">()</span></div>
-        
-<div class="viewcode-block" id="final_win.reponse_oui"><a class="viewcode-back" href="../A5_final_win.html#A5_final_win.final_win.reponse_oui">[docs]</a>    <span class="k">def</span> <span class="nf">reponse_oui</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
-        <span class="c1">#commande qui reouvrivra au début</span>
+
+<div class="viewcode-block" id="final_win.reponse_oui"><a class="viewcode-back" href="../A5_final_win.html#A5_final_win.final_win.reponse_oui">[docs]</a>    <span class="k">def</span> <span class="nf">reponse_oui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the affirmative &quot;Oui&quot; button and restarts the application</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Return to the start</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close_win</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;re-starting&quot;</span> <span class="p">)</span></div></div>
 
 
 
-<span class="c1">#MAIN</span>
 
-<span class="c1">#final_win()</span>
+<span class="c1"># final_win()</span>
 </pre></div>
 
            </div>
@@ -211,7 +230,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2023, Pauline Le Corre, Sarah Corallo, Oriane Plantec, Lea Aguilhon, Dana Moreno.
+        &#169; Copyright 2023, Lea Aguilhon, Sarah Corallo, Pauline Le Corre,  Dana Moreno, Oriane Plantec.
 
     </p>
   </div>

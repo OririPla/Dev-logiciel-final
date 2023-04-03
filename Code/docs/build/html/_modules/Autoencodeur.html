@@ -34,9 +34,8 @@
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -161,7 +160,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for Autoencodeur</h1><div class="highlight"><pre>
-<span></span><span class="c1">#### Import ####</span>
+<span></span><span class="c1">### Import ####</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -180,23 +179,21 @@
 <span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">TensorBoard</span>
 
-<span class="c1">#from sklearn.model_selection import train_test_split</span>
+<span class="c1"># from sklearn.model_selection import train_test_split</span>
 
 <span class="c1">### Fonction definition ###</span>
 
 <div class="viewcode-block" id="load_attr"><a class="viewcode-back" href="../Autoencodeur.html#Autoencodeur.load_attr">[docs]</a><span class="k">def</span> <span class="nf">load_attr</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create the liste of filesnames and sexe of the images</span>
+<span class="sd">    Create the liste of filesnames and sexe of the images</span>
 
-<span class="sd">        input :</span>
-<span class="sd">            None</span>
-
-<span class="sd">        output :</span>
-<span class="sd">            sexe (list)</span>
-<span class="sd">            filesnames (list)</span>
-
+<span class="sd">    output :</span>
+<span class="sd">        sexe (list) :</span>
+<span class="sd">            List of the sex -1 (Female) or 1 (Male)</span>
+<span class="sd">        filesnames (list) :</span>
+<span class="sd">            List of all the filesnames we want to import</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">db</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;/home/plecorre/Documents/4A-S2/Proj_dev_log/Projet-developpement-logociel/AUTOENCODEUR/new_list_attr_celba.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;nb_pic&#39;</span><span class="p">,</span><span class="s1">&#39;Male&#39;</span><span class="p">],</span><span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;new_list_attr_celba.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;nb_pic&#39;</span><span class="p">,</span><span class="s1">&#39;Male&#39;</span><span class="p">],</span><span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">filesnames</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="s2">&quot;nb_pic&quot;</span><span class="p">])</span>
     <span class="n">sexe</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="s1">&#39;Male&#39;</span><span class="p">])</span>
     <span class="k">return</span><span class="p">(</span><span class="n">sexe</span><span class="p">,</span><span class="n">filesnames</span><span class="p">)</span></div>
@@ -204,24 +201,25 @@
 
 <div class="viewcode-block" id="retrain"><a class="viewcode-back" href="../Autoencodeur.html#Autoencodeur.retrain">[docs]</a><span class="k">def</span> <span class="nf">retrain</span><span class="p">(</span><span class="n">sexe</span><span class="p">,</span><span class="n">filenames</span><span class="p">,</span><span class="n">nb_images</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fit the autoencodeur with nb_images new images, start with the start images of the dataset. Finally save the autoencodeur with the number num.</span>
+<span class="sd">    Fit the autoencodeur with nb_images new images, start with the start images of the dataset. Finally save the autoencodeur with the number num.</span>
 
-<span class="sd">        input :</span>
-<span class="sd">                sexe (list)</span>
-<span class="sd">                filenames (list)</span>
-<span class="sd">                nb_images (int)</span>
-<span class="sd">                start (int)</span>
-<span class="sd">                num (int)</span>
-<span class="sd">                plot (int)</span>
-
-<span class="sd">        output :</span>
-<span class="sd">                None</span>
+<span class="sd">    input :</span>
+<span class="sd">        sexe (list) :</span>
+<span class="sd">            List of the sex -1 (Female) or 1 (Male)</span>
+<span class="sd">        filenames (list) :</span>
+<span class="sd">            List of all the filesnames we want to retrain</span>
+<span class="sd">        nb_images (int) :</span>
+<span class="sd">            Number of images we want to retrain</span>
+<span class="sd">        start (int) :</span>
+<span class="sd">            Retrain start at the image start</span>
+<span class="sd">        plot (int) :</span>
+<span class="sd">            If 1 plot the result of the autoencoder (compare before and after autoencoder)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#Re-load the model to train it another time, we take another part of the dataset to do it</span>
     <span class="c1">#we can do it as many time as we want</span>
-    <span class="n">autoencoder_re</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../autoencodeurFLATTEN4.tf&#39;</span><span class="p">)</span>
+    <span class="n">autoencoder_re</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;autoencodeurFLATTEN4.tf&#39;</span><span class="p">)</span>
     <span class="n">x_data</span><span class="o">=</span><span class="n">import_images</span><span class="p">(</span><span class="n">nb_images</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">sexe</span><span class="p">,</span><span class="n">filenames</span><span class="p">)</span>
     <span class="n">samples</span><span class="o">=</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">)]</span>
     <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -256,11 +254,7 @@
                     <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_test</span><span class="p">))</span>
 
 
-    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">autoencoder_re</span><span class="p">,</span><span class="sa">f</span><span class="s2">&quot;../autoencodeurFLATTEN4.tf&quot;</span><span class="p">)</span>
-
-
-
-
+    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">autoencoder_re</span><span class="p">,</span><span class="s2">&quot;autoencodeurFLATTEN4.tf&quot;</span><span class="p">)</span>
 
     <span class="k">del</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
     <span class="k">del</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span></div>
@@ -268,19 +262,24 @@
 
 <div class="viewcode-block" id="import_images"><a class="viewcode-back" href="../Autoencodeur.html#Autoencodeur.import_images">[docs]</a><span class="k">def</span> <span class="nf">import_images</span><span class="p">(</span><span class="n">nb_images</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">sexe</span><span class="p">,</span><span class="n">filesnames</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Import images of the dataset. Import nb_images, strat with the images number start and take the same number of male and female.</span>
+<span class="sd">    To give numerotation to the images, import images of the dataset and import nb_images, strat with the images number start and take the same number of male and female.</span>
 
-<span class="sd">            input :</span>
-<span class="sd">                nb_images (int)</span>
-<span class="sd">                start (int)</span>
-<span class="sd">                sexe (list)</span>
-<span class="sd">                filesnames (list)</span>
+<span class="sd">    input :</span>
+<span class="sd">        nb_images (int) :</span>
+<span class="sd">            Number of images we want Retrain start at the image start to import</span>
+<span class="sd">        start (int) :</span>
+<span class="sd">            Import start at the image start</span>
+<span class="sd">        sexe (list) :</span>
+<span class="sd">            List of the sex -1 (Female) or 1 (Male)</span>
+<span class="sd">        filesnames (list) :</span>
+<span class="sd">            List of all the filesnames we want to import</span>
 
-<span class="sd">            output :</span>
-<span class="sd">                x_data (numpy array)</span>
+<span class="sd">    output :</span>
+<span class="sd">        x_data (numpy array) :</span>
+<span class="sd">            List of the images in their np.array form</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-    <span class="n">dataset_img</span><span class="o">=</span><span class="s1">&#39;/home/plecorre/Documents/4A-S2/Proj_dev_log/Projet-developpement-logociel/AUTOENCODEUR/img_align_celeba&#39;</span>
+    <span class="n">dataset_img</span><span class="o">=</span><span class="s1">&#39;img_align_celeba&#39;</span>
     <span class="n">x</span><span class="o">=</span><span class="p">[]</span>
     <span class="n">compt_Male</span><span class="o">=</span><span class="mi">0</span>
     <span class="n">compt_Female</span><span class="o">=</span><span class="mi">0</span>
@@ -298,55 +297,57 @@
                 <span class="n">image</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset_img</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">filesnames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1">#download image</span>
                 <span class="n">image_resize</span><span class="o">=</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,(</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">))</span> <span class="c1">#resize picture with size 128x128</span>
                 <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image_resize</span><span class="p">)</span>
-
-
     <span class="n">x_data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1">#transform list into numpy array</span>
     <span class="n">x</span><span class="o">=</span><span class="kc">None</span>
     <span class="k">return</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span></div>
 
 <span class="k">class</span> <span class="nc">AutoEncoder</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">         A class to represent the autoencodeur model with an encoder and a decoder</span>
-<span class="sd">         We can have different form of the latent space by commenting certain lines : we try 3 possibilities :</span>
-<span class="sd">             matrix (32,32,4)</span>
-<span class="sd">             matrix (16,16,2)</span>
-<span class="sd">             vector size 4096</span>
+<span class="sd">    A class to represent the autoencodeur model with an encoder and a decoder</span>
+<span class="sd">    We can have different form of the latent space by commenting certain lines : we try 3 possibilities :</span>
+<span class="sd">        matrix (32,32,4)</span>
+<span class="sd">        matrix (16,16,2)</span>
+<span class="sd">        vector size 4096</span>
 
-
-<span class="sd">         Attributes :</span>
-<span class="sd">             None</span>
-
-<span class="sd">         Methods :</span>
-<span class="sd">             call</span>
+<span class="sd">    Attributes :</span>
+<span class="sd">        encoder (keras.model) :</span>
+<span class="sd">            The encoder</span>
+<span class="sd">        decoder (keras.model) :</span>
+<span class="sd">            The decoder</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        super(AutoEncoder, self).__init__()</span>
-<span class="sd">        self.encoder = keras.Sequential([</span>
-<span class="sd">            layers.Input(shape=(128, 128, 3)),</span>
-<span class="sd">            layers.Conv2D(8, (3,3), activation=&#39;relu&#39;, padding=&#39;same&#39;, strides=2),</span>
-<span class="sd">            layers.Conv2D(4, (3,3), activation=&#39;relu&#39;, padding=&#39;same&#39;, strides=2),</span>
-<span class="sd">            #layers.Conv2D(2, (3,3), activation=&#39;relu&#39;, padding=&#39;same&#39;, strides=2), #commented to have a vector in latent space and a space (32,32,4) in latent space</span>
-<span class="sd">            layers.Flatten(), #commented to have a matrix in the latent space</span>
-<span class="sd">            layers.Dense(4096, activation=&quot;relu&quot;), #commented to have a matrix in the latent space</span>
-<span class="sd">            layers.Dense(4096, activation=&quot;relu&quot;) #commented to have a matrix in the latent space</span>
-<span class="sd">            ])</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AutoEncoder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="c1">#layers.Conv2D(2, (3,3), activation=&#39;relu&#39;, padding=&#39;same&#39;, strides=2), #commented to have a vector in latent space and a space (32,32,4) in latent space</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span> <span class="c1">#commented to have a matrix in the latent space</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4096</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span> <span class="c1">#commented to have a matrix in the latent space</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4096</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span> <span class="c1">#commented to have a matrix in the latent space</span>
+            <span class="p">])</span>
 
-<span class="sd">        self.decoder = keras.Sequential([</span>
-<span class="sd">            layers.Dense(4096,activation=&quot;relu&quot;), #commented to have a matrix in the latent space</span>
-<span class="sd">            layers.Dense(32 * 32 * 4, activation=&quot;relu&quot;),#commented to have a matrix in the latent space</span>
-<span class="sd">            layers.Reshape((32, 32, 4)), #commented to have a matrix in the latent space</span>
-<span class="sd">            #layers.Conv2DTranspose(2, kernel_size=3, strides=2, activation=&#39;relu&#39;, padding=&#39;same&#39;), #commented to have a vector in latent space  and a space (32,32,4) in latent space</span>
-<span class="sd">            layers.Conv2DTranspose(4, kernel_size=3, strides=2, activation=&#39;relu&#39;, padding=&#39;same&#39;),</span>
-<span class="sd">            layers.Conv2DTranspose(8, kernel_size=3, strides=2, activation=&#39;relu&#39;, padding=&#39;same&#39;),</span>
-<span class="sd">            layers.Conv2D(3, kernel_size=(3,3), activation=&#39;sigmoid&#39;, padding=&#39;same&#39;)])</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4096</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span> <span class="c1">#commented to have a matrix in the latent space</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span> <span class="o">*</span> <span class="mi">32</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span><span class="c1">#commented to have a matrix in the latent space</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Reshape</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span> <span class="c1">#commented to have a matrix in the latent space</span>
+            <span class="c1">#layers.Conv2DTranspose(2, kernel_size=3, strides=2, activation=&#39;relu&#39;, padding=&#39;same&#39;), #commented to have a vector in latent space  and a space (32,32,4) in latent space</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)])</span>
+
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        encoded = self.encoder(x)</span>
-<span class="sd">        decoded = self.decoder(encoded)</span>
-<span class="sd">        return decoded</span>
+<span class="sd">        This function call the encoder to decod the images given with X</span>
+<span class="sd">        It&#39;s a test function</span>
+
+<span class="sd">        input :</span>
+<span class="sd">            x(np.array) :</span>
+<span class="sd">                The images into their initial form (in np.array) that will be encoded and then decoded</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">encoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">decoded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">decoded</span>
 
 
 <span class="c1">### Compilation the autoencoder ###</span>
@@ -365,7 +366,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2023, Pauline Le Corre, Sarah Corallo, Oriane Plantec, Lea Aguilhon, Dana Moreno.
+        &#169; Copyright 2023, Lea Aguilhon, Sarah Corallo, Pauline Le Corre,  Dana Moreno, Oriane Plantec.
 
     </p>
   </div>

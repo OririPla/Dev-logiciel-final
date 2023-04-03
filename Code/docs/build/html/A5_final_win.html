@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>A5_final_win module &mdash; Software development 0 documentation</title>
@@ -34,9 +35,8 @@
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -98,10 +98,21 @@
 <li class="toctree-l2"><a class="reference internal" href="A2_photo_win.html">A2_photo_win module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="A3_export_data_win.html">A3_export_data_win module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="A4_pdf_win.html">A4_pdf_win module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">A5_final_win module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">A5_final_win module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#A5_final_win.final_win"><code class="docutils literal notranslate"><span class="pre">final_win</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#A5_final_win.final_win.win"><code class="docutils literal notranslate"><span class="pre">final_win.win</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#A5_final_win.final_win.label_1"><code class="docutils literal notranslate"><span class="pre">final_win.label_1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#A5_final_win.final_win.close_win"><code class="docutils literal notranslate"><span class="pre">final_win.close_win()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#A5_final_win.final_win.reponse_oui"><code class="docutils literal notranslate"><span class="pre">final_win.reponse_oui()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="Algo_main_CelebA.html">Algo_main_CelebA module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Algo_main_CelebA_vf.html">Algo_main_CelebA_vf module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Autoencodeur.html">Autoencodeur module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Main_test.html">Main_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Tuto.html">Tuto module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="image_celeba.html">image_celeba module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="retrain.html">retrain module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="train.html">train module</a></li>
@@ -180,25 +191,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-A5_final_win">
-<span id="a5-final-win-module"></span><h1>A5_final_win module<a class="headerlink" href="#module-A5_final_win" title="Permalink to this headline">¶</a></h1>
+  <section id="module-A5_final_win">
+<span id="a5-final-win-module"></span><h1>A5_final_win module<a class="headerlink" href="#module-A5_final_win" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="A5_final_win.final_win">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">A5_final_win.</span></span><span class="sig-name descname"><span class="pre">final_win</span></span><a class="reference internal" href="_modules/A5_final_win.html#final_win"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#A5_final_win.final_win" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to represent the final window of the application.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="A5_final_win.final_win.win">
+<span class="sig-name descname"><span class="pre">win</span></span><a class="headerlink" href="#A5_final_win.final_win.win" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Tkinter root window for the application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tk</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="A5_final_win.final_win.label_1">
+<span class="sig-name descname"><span class="pre">label_1</span></span><a class="headerlink" href="#A5_final_win.final_win.label_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>The label widget for instructions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tkinter.ttk.Label</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="A5_final_win.final_win.close_win">
 <span class="sig-name descname"><span class="pre">close_win</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/A5_final_win.html#final_win.close_win"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#A5_final_win.final_win.close_win" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Closes the final window.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="A5_final_win.final_win.reponse_oui">
 <span class="sig-name descname"><span class="pre">reponse_oui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/A5_final_win.html#final_win.reponse_oui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#A5_final_win.final_win.reponse_oui" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Handles the affirmative “Oui” button and restarts the application</p>
+</dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
@@ -214,7 +250,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2023, Pauline Le Corre, Sarah Corallo, Oriane Plantec, Lea Aguilhon, Dana Moreno.
+        &#169; Copyright 2023, Lea Aguilhon, Sarah Corallo, Pauline Le Corre,  Dana Moreno, Oriane Plantec.
 
     </p>
   </div>

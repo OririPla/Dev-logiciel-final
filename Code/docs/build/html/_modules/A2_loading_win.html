@@ -34,9 +34,8 @@
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -170,30 +169,55 @@
 <span class="kn">import</span> <span class="nn">time</span>
 
 <div class="viewcode-block" id="loading_win"><a class="viewcode-back" href="../A2_loading_win.html#A2_loading_win.loading_win">[docs]</a><span class="k">class</span> <span class="nc">loading_win</span><span class="p">:</span>
-        
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates an intermediate window when the program is running but when there are no results yet</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        win (Tk object) :</span>
+<span class="sd">            The main window object.</span>
+<span class="sd">        label_load (ttk.Label) :</span>
+<span class="sd">            A label object used to display a message in the window.</span>
+<span class="sd">        Progress_Bar (ttk.Label) :</span>
+<span class="sd">            A label object used to display a loading bar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the window and creates the widgets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
         <span class="c1">#self.win.geometry(&quot;%dx%d&quot; % (500, 500))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;600x250&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;tk::PlaceWindow . center&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Chargement&quot;</span><span class="p">)</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">label_load</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Chargement en cours...&quot;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_load</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-        
-   
+
+
         <span class="bp">self</span><span class="o">.</span><span class="n">Progress_Bar</span><span class="o">=</span><span class="n">Progressbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span><span class="n">orient</span><span class="o">=</span><span class="n">HORIZONTAL</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;determinate&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Progress_Bar</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-        
+
         <span class="n">test</span><span class="o">=</span><span class="mi">4</span>
         <span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Run&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Slide</span><span class="p">(</span><span class="n">test</span><span class="p">))</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
 
 <div class="viewcode-block" id="loading_win.close_win"><a class="viewcode-back" href="../A2_loading_win.html#A2_loading_win.loading_win.close_win">[docs]</a>    <span class="k">def</span> <span class="nf">close_win</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Destroys the current window</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="loading_win.Slide"><a class="viewcode-back" href="../A2_loading_win.html#A2_loading_win.loading_win.Slide">[docs]</a>    <span class="k">def</span> <span class="nf">Slide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the Progress_Bar to show how progress the program</span>
+
+<span class="sd">        input :</span>
+<span class="sd">            number (int) : </span>
+<span class="sd">                The number of options to choose from.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;run&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Progress_Bar</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">20</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span>
@@ -204,13 +228,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">Progress_Bar</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">80</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">win</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Progress_Bar</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">100</span>    
+        <span class="bp">self</span><span class="o">.</span><span class="n">Progress_Bar</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">100</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_load</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Chargement terminé !&quot;</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close_win</span><span class="p">()</span></div></div>
-    
-     
+
+
 <span class="c1">#testing</span>
 <span class="c1">#first = loading_window()</span>
 </pre></div>
@@ -224,7 +248,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2023, Pauline Le Corre, Sarah Corallo, Oriane Plantec, Lea Aguilhon, Dana Moreno.
+        &#169; Copyright 2023, Lea Aguilhon, Sarah Corallo, Pauline Le Corre,  Dana Moreno, Oriane Plantec.
 
     </p>
   </div>
