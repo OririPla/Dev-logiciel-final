@@ -44,9 +44,7 @@ class tutoriel:
 
         # change image function
 
-        self.tuto_end= ttk.Button( self.win, teA label object used to display a message in the window
-        Progress_Bar (ttk.Label) :
-            A label object used to display a loading barxt="Quitter",command=self.close_win )
+        self.tuto_end = ttk.Button(self.win,barxt="Quitter",command=self.close_win )
         self.tuto_end.pack(side="bottom", pady=10)
 
         # set up the components

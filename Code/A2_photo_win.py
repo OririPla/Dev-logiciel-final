@@ -76,8 +76,7 @@ class photo_win:
         self.L_photos=[]
         self.L_photos=a.initialisation_Liste_5_premiers()
 
-        s
-            self (photo_win)elf.can_im = Canvas(self.win,bg='white',height=400,width=self.width)
+        self.can_im = Canvas(self.win,bg='white',height=400,width=self.width)
         self.can_im.pack(pady=100)
 
         self.can_text = Canvas(self.win,height=600,width=self.width)
