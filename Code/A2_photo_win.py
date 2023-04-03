@@ -1,11 +1,16 @@
-#####     WINDOWS WITH THE FACES    ######
+#####     WINDOW WITH THE PHOTOS    ######
 from tkinter import *
 from tkinter import ttk
 import  tkinter as tk
 from tkinter.messagebox import *
 from PIL import ImageTk, Image
 
-# classes
+#Path
+import pathlib
+path=str(pathlib.Path(__file__).parent.resolve().parent.resolve())
+
+
+#class
 import Algo_main_CelebA_vf as a
 import  image_celeba as imc
 
@@ -22,7 +27,6 @@ class photo_win:
     """
     Creates a window with five images, and allows the user to choose one of them, reset the images,
     or validate their choice.
-
     Attributes:
         fen1 (Tk object) :
             The main window object.
@@ -47,15 +51,12 @@ class photo_win:
         iteration (int) :
             A counter used in the generate_image method.
     """
-
     def __init__(self, string_titre):
         """
         Initializes the window and creates the widgets.
-
         input :
             string_titre (str) : The title of the window.
         """
-
         self.win = Tk()
         self.width= self.win.winfo_screenwidth()
         self.height= self.win.winfo_screenheight()
@@ -72,7 +73,7 @@ class photo_win:
         end_button = Button(self.win, text="Ré-initialiser", command=self.reinitialise)
         end_button.pack()
 
-
+        
         self.L_photos=[]
         self.L_photos=a.initialisation_Liste_5_premiers()
 
@@ -84,16 +85,17 @@ class photo_win:
 
         self.chosen_number=[]
         self.iteration =0
-
+         ### pas utilisé ?
+    
+        #celeba
         self.mise_a_j_img()
 
         self.win.mainloop()
-
+    
     def mise_a_j_img(self):
         """
         Updates the images displayed in the window
         """
-
         self.im1=ImageTk.PhotoImage(self.L_photos[0].im, master=self.win)
         self.im2=ImageTk.PhotoImage(self.L_photos[1].im, master=self.win)
         self.im3=ImageTk.PhotoImage(self.L_photos[2].im, master=self.win)
@@ -108,7 +110,7 @@ class photo_win:
 
         self.b3 = tk.Button(self.can_im, image=self.im3, highlightcolor="green", highlightthickness=3, activebackground='green', command=lambda: self.choice(2))
         self.b3.pack(side = LEFT, padx=10)
-
+    
         self.b4 = tk.Button(self.can_im, image=self.im4, highlightcolor="green", highlightthickness=3, activebackground='green', command=lambda: self.choice(3))
         self.b4.pack(side = LEFT, padx=10)
 
@@ -121,10 +123,10 @@ class photo_win:
         Switches the current window five images with five new images
         """
         for c in self.can_im.winfo_children():
-           c.destroy()
+           c.destroy() 
 
         for c in self.can_text.winfo_children():
-           c.destroy()
+           c.destroy() 
         t="Images réinitialisées. Choississez une image (ou plusieurs) qui correspond(ent) le plus en cliquant dessus"
         self.text.set(t)
         self.chosen_number=[]
@@ -141,17 +143,14 @@ class photo_win:
     def choice(self, number) :
         """
         Chooses a random element from the list of options and returns it.
-
         input :
             number (int): The number of options to choose from.
-
         """
-
         if number in self.chosen_number :
             self.chosen_number.remove(number)
         else :
             self.chosen_number.append(number)
-
+        
         for c in self.can_text.winfo_children():
            c.destroy()
 
@@ -173,7 +172,7 @@ class photo_win:
             self.label.pack(pady=20)
             end_button = Button(self.can_text, text="Générer d'autres photos à partir de celles choisies", command=self.generate_image)
             end_button.pack(pady=20)
-
+    
 
         #l.loading_window()
 
@@ -181,28 +180,26 @@ class photo_win:
         """
         Generates an image of the specified size with random pixels of the specified color palette.
         """
-
         self.iteration+=1
-        # We call the genetic algorithm to generate a new list of image_celeba
+        #We call the genetic algorithm to generate a new list of image_celeba
         self.L_photos=a.generate_5_new_photos(self.L_photos, self.chosen_number,  self.iteration)
 
         t="Choississez à nouveau l'image qui correspond le plus en cliquant dessus (itération : " + str(self.iteration) + " )"
         self.text.set(t)
-
+        
         for c in self.can_im.winfo_children():
-           c.destroy()
+           c.destroy() 
 
         for c in self.can_text.winfo_children():
-           c.destroy()
+           c.destroy() 
 
         self.mise_a_j_img()
-
+        
 
     def validate(self) :
         """
         Validates the user's input and returns a boolean value indicating whether the input is valid or not.
         """
-
         choice_final=askokcancel(title="Confirmation de validation", message="Etes-vous sur de vouloir choisir cette photo comme photo finale ? ")
         if choice_final :
             self.close_win()
@@ -211,4 +208,6 @@ class photo_win:
             e.export_data_win(chosen_photo)
 
 
-# photo_win("test mise en commun")
+
+#####    MAIN test   ######
+#photo_win("test mise en commun")

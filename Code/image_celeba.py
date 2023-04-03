@@ -8,7 +8,6 @@ from PIL import Image, ImageTk
 class image_celeba :
     """
     A class to handle CelebA dataset images and resizing.
-
     Attributes:
         filename_jpg (str) :
             The path of the jpg file.
@@ -20,13 +19,10 @@ class image_celeba :
             The list of the images into their encoded form, so it's a list of vector
         im (PIL.Image) :
             The image object.
-
     """
-
     def __init__(self, afilename, anumber, matrix, P):
         """
         Initialisation of the object image_celeba
-
         input:
             afilename (str):
                 The path of the jpg file.
@@ -37,32 +33,24 @@ class image_celeba :
             P (np.array) :
                 The list of the images into their encoded form, so it's a list of vector
         """
-
         self.filename_jpg=afilename
-
         self.number=anumber
         self.matrix=matrix
         self.P=P
         self.im = Image.open(self.filename_jpg)
 
-    def get_filename_jpg(self):
-        """
-        Returns the filename of the jpg file.
-        """
-        return self.filename_jpg
 
-    def RESIZING (self,x,y):
+    def RESIZING (self,x,y): 
         """
         Resize the image to fit in a (x,y) box and save the resized image.
-
         input:
             x (int) :
                 The width of the box.
             y (int) :
                 The height of the box.
-
         """
         #resize image and keep ratio
         self.im.thumbnail((x, y))
         #self.im.save('resized_'+self.filename_jpg)
         self.im.save(self.filename_jpg)
+

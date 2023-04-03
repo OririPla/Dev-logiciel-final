@@ -1,19 +1,23 @@
-#####    First window    ######
+#####    FIRST WINDOW    ######
 
 from tkinter import *
 from tkinter import ttk
 import  tkinter as tk
-import A2_photo_win as p
+
+import A2_photo_win as p 
 import Tuto as t
+
 import webbrowser
 from PIL import ImageTk, Image
 
+#Path
+import pathlib
+path=str(pathlib.Path(__file__).parent.resolve().parent.resolve())
 
 class first_win:
     """
     Creates a GUI with a welcome message and a button to start using the application.
     This module uses the tkinter library to create a GUI with a label and a button. The label displays a welcome message to the user, while the button allows the user to start the application. When the button is clicked, it closes the current window and opens a second window.
-
     Attributes:
         win (Tk object) :
             The main window object.
@@ -30,23 +34,19 @@ class first_win:
         button_web (ttk.Button) :
             A button to access to the web site of INSA
     """
-
     def __init__(self, string_titre):
         """
         Constructs and initializes the GUI window with string_titre as its title.
-
         input :
             string_titre (str) :
                 Name of the first window
-
         """
-
         self.win = Tk()
         width= self.win.winfo_screenwidth()
         height= self.win.winfo_screenheight()
         self.win.geometry("%dx%d" % (width, height))
         self.win.title(string_titre)
-        print("waouw")
+
         self.label1 = ttk.Label( self.win, text="Bonjour et bienvenue, logiciel de déposition de plainte par portrait robot." )
         self.label1.pack(pady=100)
 
@@ -61,18 +61,18 @@ class first_win:
                                    command=self.start )
         self.button1.pack(pady=100)
 
-        image_insa=tk.PhotoImage(file='../IMG/resized_logo_INSA.png')
+        image_insa=tk.PhotoImage(file=path+'/IMG/resized_logo_INSA.png')
         self.button_web = tk.Button(self.win, image=image_insa, command=self.lien_insa)
         self.button_web.pack(padx=100)
 
         self.win.mainloop()
-
+    
     def tuto(self):
         """
         Add a button to a link to the tutoriel (explication of how works the logiciel).
         """
         t.tutoriel()
-
+        
 
     def lien_insa(self):
         """
@@ -85,14 +85,15 @@ class first_win:
         Destroys the GUI window.
         """
         self.win.destroy()
-
-    def start(self):
+   
+    def start( self ):
         """
         Closes the current window and opens a second window.
         """
         self.close_win()
         p.photo_win("Fenetre avec photos et  Algorithme")
-        print( "starting" )
+        #print( "starting" )
+ 
 
-
-# ttrest=first_win("test")
+#####    MAIN test  ######
+#first_win("test")
