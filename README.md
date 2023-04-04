@@ -1,25 +1,39 @@
-General description
+# General description
 
 The objective of this project is to create a photofit picture software. The idea is to present several images with faces to the user. The user will have to choose one or more images that is/are closest to the person they wish to report. Each time, a genetic algorithm is followed by a decoder to form new images depending on the chosen images. The decoder comes from a Variationate AutoEncoder(VAE) trained on a database of portraits (CelebrA). This AI is used to generate new images derived from the previously selected images. After several iterations of image selection-generation, a portrait established by the AI can be validated by the user, thus creating the final photofit image. This image can then be exported to a pdf along with the information of the user.
 We select 607 images from the datasets CelebA to create a new dataset which will be presented to the user. We chose images with a plain background because the autoencoder work better for this type of images.
 
 
-Development objectives
+# Development objectives
 
 This is the third version of our project. It works but could use several ameliorations. First and foremost, it could use a better version of the genetic algorithm and AutoEncoder to have better quality images because ours are very blurry. We could also use another database to have better images. Indeed, the AutoEncoder works better with a plain background. Another improvement could be linked to the graphical interface : you can always make it more intuitive and user-friendly.
 
-
-Requirements for the development environment to be integrated
+# Requirements for the development environment to be integrated
 
 The software can be installed on the exploitation system Linux or Mac. It needs an environment python 3. Because of its relatively important size, the user needs some space.
 
 
-Instructions for installation and use
+# Instructions for installation and use
 
-For the installation you have to run a bash script. Then, to use the software it is very simple, the user can follow the tutorial using the button “Tutoriel” in the first page. The user will then begin choosing one or more images. If no initial image is suitable, they can choose to re-initialise the images. After the choosing phase, the algorithm will generate new images with those that have been selected. You can now select one or more images and so on. When one image is suitable to what the user desires, they can stop the process by validating this image. It can be saved in a pdf document along with other information on the user.
+For the first installation you have to follow these steps :
+  1. You copy the directory "dir_logiciel" from the key to your laptop
+  2. You go into this new directory in your laptop
+  3. You open a terminal in this directory and run a bash script : bash Installation.sh (this creates a virtual environnement named env1)
+  4. You can use the software
+
+For the following installations :
+  1. Go in the virtual environment : source env1/bin/activate
+  2. Just write in a terminal : python3 lib/python3.9/site-packages/src/Code/start_software_faces.py (or bash Start_log_2.sh)
+  3. You can use the software
+
+ Then, to use the software it is very simple, the user can follow the tutorial using the button “Tutoriel” in the first page. The user will then begin choosing one or more images. If no initial image is suitable, they can choose to re-initialise the images. After the choosing phase, the algorithm will generate new images with those that have been selected. You can now select one or more images and so on. When one image is suitable to what the user desires, they can stop the process by validating this image. It can be saved in a pdf document called "srcinfos.pdf" along with other information of the user.
+
+# Desinstallation
+
+You use bash Desinstallation.sh in a terminal opened in the virtual environment.
 
 
-List of the technologies used and, if applicable, links to other information about these technologies
+# List of the technologies used and, if applicable, links to other information about these technologies
 
 Genetic algorithm : The genetic algorithm makes modifications on the selected images and it mixes them if the user chooses several. The mutations and the crossing-over are made on the selected images in their form vectors (= encoded form).
 
@@ -46,7 +60,7 @@ conv2d (Conv2DTranspose)       (None, 32, 32, 4)
 =================================================================
 
 
-Known bugs and possible corrections:
+# Known bugs and possible corrections:
 
 The import Tensorflow has a known warning message asking the user to rebuild it in order to use it at its best. Nevertheless, we weren’t able to rebuild it because of modules’ versions confrontation, and chose to ignore this warning.
 
@@ -73,11 +87,11 @@ pip install pillow
 pip install opencv-python
 
 
-FAQ
+# FAQ
 
 Because this is the first version presented to the Client, we don’t have any questions to relate yet.
 
 
-Copyright and licensing information
+# Copyright and licensing information
 
 See licence.txt
